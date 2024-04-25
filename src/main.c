@@ -1,6 +1,6 @@
+#include "lexical_analyser.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "lexical_analyser.h"
 
 #define BUFFER_SIZE 1024
 
@@ -8,7 +8,8 @@ int main(int argc, char *argv[]) {
   // declarations
   FILE *input = fopen("meu_programa.txt", "r");
   FILE *output = fopen("saida.txt", "w");
-  char str[BUFFER_SIZE];
+  char current_str[BUFFER_SIZE];
+  char c;
 
   // I/O error check
   if (!input || !output) {
@@ -16,7 +17,10 @@ int main(int argc, char *argv[]) {
     exit(1);
   }
 
-  hello();
+  // read and write to file
+  while ((c = fgetc(input)) != EOF) {
+    fprintf(output, "%c", c);
+  }
 
   // freeing memory
   fclose(input);
