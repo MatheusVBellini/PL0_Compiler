@@ -1,7 +1,7 @@
 # inputs and outputs
 COMPILER ?= gcc
 
-IN = main.c 
+IN = src/main.c 
 OUT = lexical_analyser
 
 ZIP = LexicalAnalyser.zip
@@ -15,7 +15,7 @@ all:
 build: format lint all
 
 clean:
-	rm -f $(OUT) $(ZIP)
+	rm -f $(OUT) $(ZIP) saida.txt && touch saida.txt
 
 zip:
 	zip -r $(ZIP) * -x $(OUT)
