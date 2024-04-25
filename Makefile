@@ -15,7 +15,7 @@ all:
 build: format lint all
 
 clean:
-	rm -f $(OUT) $(ZIP) saida.txt && touch saida.txt
+	rm -f $(OUT) $(ZIP)
 
 zip:
 	zip -r $(ZIP) * -x $(OUT)
