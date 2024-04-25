@@ -13,6 +13,6 @@ typedef struct {
  * @param input Input file being read
  * @return Token struct
  */
-Token read_token(FILE input);
+Token read_token(FILE *input);
 
 #endif
