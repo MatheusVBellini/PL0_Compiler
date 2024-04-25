@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "lexical_analyser.h"
 
 #define BUFFER_SIZE 1024
 
@@ -14,6 +15,8 @@ int main(int argc, char *argv[]) {
     perror("Error opening files");
     exit(1);
   }
+
+  hello();
 
   // freeing memory
   fclose(input);

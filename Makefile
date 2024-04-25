@@ -1,16 +1,22 @@
 # inputs and outputs
 COMPILER ?= gcc
 
-IN = src/main.c 
+IN = $(wildcard src/*.c)
+OBJ = $(IN:.c=.o)
 OUT = lexical_analyser
 
 ZIP = LexicalAnalyser.zip
 
 # compilation flags
-FLAGS = -Wall -Wextra -pedantic -O3
+FLAGS = -I./src -Wall -Wextra -pedantic -O3
 
-all: 
-	$(COMPILER) $(FLAGS) -o $(OUT) $(IN)
+all: $(OUT) 
+
+$(OUT): $(OBJ)
+	$(COMPILER) $(OBJ) -o $@ && rm -r $(OBJ)
+
+src/%.o : src/%.c
+	$(COMPILER) $(FLAGS) -c $^ -o $@
 
 build: format lint all
 
