@@ -1,4 +1,4 @@
-#include "lexical_analyser.h"
+#include "hash_table.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -111,14 +111,4 @@ void kwtable_free(KWTable *table) {
   for (int i = 0; i < TABLE_SIZE; i++)
     node_free(table->table[i]);
   free(table);
-}
-
-/**
- * @brief read the next token in a file stream
- * @param input Input file being read
- * @return Token struct
- */
-Token token_read(FILE *input) {
-  Token tok;
-  return tok;
 }

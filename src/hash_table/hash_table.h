@@ -1,5 +1,5 @@
-#ifndef LEXICAL_ANALYSER_H
-#define LEXICAL_ANALYSER_H
+#ifndef HASH_TABLE
+#define HASH_TABLE
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -8,18 +8,13 @@
 #define MAX_STR_LENGTH 20
 #define PLACEHOLDER "NOT_A_KW"
 
-typedef struct {
-  char *token;
-  char *tkclass;
-} Token;
-
 typedef struct node {
   char keyword[MAX_STR_LENGTH];
   struct node *next;
 } Node;
 
 typedef struct {
-  Node *table[TABLE_SIZE]; 
+  Node *table[TABLE_SIZE];
 } KWTable;
 
 /**
@@ -68,12 +63,5 @@ bool kwtable_query(KWTable *table, const char *str);
  * @param table Pointer to table
  */
 void kwtable_free(KWTable *table);
-
-/**
- * @brief read the next token in a file stream
- * @param input Input file being read
- * @return Token struct
- */
-Token token_read(FILE *input);
 
 #endif

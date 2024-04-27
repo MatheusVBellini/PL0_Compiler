@@ -1,5 +1,5 @@
-#ifndef PL0_LEXICAL_ANALYSER_H
-#define PL0_LEXICAL_ANALYSER_H
+#ifndef LEXICAL_ANALYZER_H
+#define LEXICAL_ANALYZER_H
 
 #include <stdio.h>
 #include <stdbool.h>

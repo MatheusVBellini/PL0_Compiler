@@ -1,20 +1,7 @@
-#include "pl0-lex-analyzer.h"
+#include "lexical_analyzer.h"
 
 #include <stdlib.h>
 #include <string.h>
-
-Symbol_entry reserved_words[] = {
-    {"const", symbol_const},
-    {"var", symbol_var},
-    {"procedure", symbol_procedure},
-    {"call", symbol_call},
-    {"begin", symbol_begin},
-    {"end", symbol_end},
-    {"if", symbol_if},
-    {"then", symbol_then},
-    {"while", symbol_while},
-    {"do", symbol_do},
-};
 
 Symbol_entry symbols[] = {
     {"+", symbol_op_plus},
@@ -37,16 +24,16 @@ Symbol_entry symbols[] = {
     {"}", symbol_rkey},
 };
 
-int get_reserved_word_id(char* word) {
-    int reserved_words_count = sizeof(reserved_words) / sizeof(Symbol_entry);
-    for (int i = 0; i < reserved_words_count; i++) {
-        if (strcmp(reserved_words[i].name, word) == 0) {
-            return reserved_words[i].type;
-        }
-    }
+// int get_reserved_word_id(char* word) {
+//     int reserved_words_count = sizeof(reserved_words) / sizeof(Symbol_entry);
+//     for (int i = 0; i < reserved_words_count; i++) {
+//         if (strcmp(reserved_words[i].name, word) == 0) {
+//             return reserved_words[i].type;
+//         }
+//     }
 
-    return -1;
-}
+//     return -1;
+// }
 
 int get_symbol_id(char* symbol) {
     int symbols_count = sizeof(symbols) / sizeof(Symbol_entry);
