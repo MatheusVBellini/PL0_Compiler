@@ -1,6 +1,0 @@
-VAR a,b,c;
-BEGIN
-        a:=2;
-        b:=3;
-        c:=@+b
-END.

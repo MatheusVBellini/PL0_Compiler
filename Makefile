@@ -8,9 +8,9 @@ OUT = lexical_analyser
 ZIP = LexicalAnalyser.zip
 
 # compilation flags
-FLAGS = -I./src -Wall -Wextra -pedantic -O3
+FLAGS = -I./src -Wall -Wextra -pedantic -O3 -g
 
-all: $(OUT) 
+all: $(OUT)
 
 $(OUT): $(OBJ)
 	$(COMPILER) $(OBJ) -o $@ && rm -r $(OBJ)
@@ -21,7 +21,7 @@ src/%.o : src/%.c
 build: format lint all
 
 clean:
-	rm -f $(OUT) $(ZIP)
+	rm -f $(OUT) $(ZIP) src/*.o
 
 zip:
 	zip -r $(ZIP) * -x $(OUT)
@@ -32,4 +32,4 @@ format:
 
 # dependencies: cppcheck
 lint:
-	cppcheck $(IN) 
+	cppcheck $(IN)
