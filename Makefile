@@ -28,6 +28,9 @@ clean:
 zip:
 	zip -r $(ZIP) * -x $(OUT)
 
+run:
+	./$(OUT)
+
 # dependecies: clang-format
 format:
 	clang-format -i $(IN)
