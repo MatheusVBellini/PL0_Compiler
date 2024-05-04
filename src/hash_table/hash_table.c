@@ -1,12 +1,13 @@
 #include "hash_table.h"
+
 #include <stdlib.h>
 #include <string.h>
 
 #define NUM_CLASSES 11
 
 static char classes[NUM_CLASSES][MAX_STR_LENGTH] = {
-    "CONST", "VAR",  "PROCEDURE", "CALL", "BEGIN", "END",
-    "IF",    "THEN", "WHILE",     "DO",   "ODD"};
+    "CONST", "VAR", "PROCEDURE", "CALL", "BEGIN", "END",
+    "IF", "THEN", "WHILE", "DO", "ODD"};
 
 /**
  * @brief initlalizes node with specified string
@@ -14,10 +15,10 @@ static char classes[NUM_CLASSES][MAX_STR_LENGTH] = {
  * @return pointer to node
  */
 Node *node_init(const char *str) {
-  Node *node = (Node *)malloc(sizeof(Node));
-  strcpy(node->keyword, str);
-  node->next = NULL;
-  return node;
+    Node *node = (Node *)malloc(sizeof(Node));
+    strcpy(node->keyword, str);
+    node->next = NULL;
+    return node;
 }
 
 /**
@@ -25,15 +26,15 @@ Node *node_init(const char *str) {
  * @param str String
  */
 void node_insert(Node *node, const char *str) {
-  Node *tmp = node;
-  if (!strcmp(tmp->keyword, PLACEHOLDER)) {
-    strcpy(tmp->keyword, str);
-  } else {
-    while (tmp->next) {
-      tmp = tmp->next;
+    Node *tmp = node;
+    if (!strcmp(tmp->keyword, PLACEHOLDER)) {
+        strcpy(tmp->keyword, str);
+    } else {
+        while (tmp->next) {
+            tmp = tmp->next;
+        }
+        tmp->next = node_init(str);
     }
-    tmp->next = node_init(str);
-  }
 }
 
 /**
@@ -41,14 +42,14 @@ void node_insert(Node *node, const char *str) {
  * @param node Pointer to node
  */
 void node_free(Node *node) {
-  Node *current = node;
-  Node *next;
+    Node *current = node;
+    Node *next;
 
-  while (current != NULL) {
-    next = current->next;
-    free(current);
-    current = next;
-  }
+    while (current != NULL) {
+        next = current->next;
+        free(current);
+        current = next;
+    }
 }
 
 /**
@@ -57,13 +58,13 @@ void node_free(Node *node) {
  * @return hash index
  */
 unsigned long hash_djb2(const char *str) {
-  unsigned long hash = 5381;
-  int c;
+    unsigned long hash = 5381;
+    int c;
 
-  while ((c = *str++))
-    hash = ((hash << 5) + hash) + c;
+    while ((c = *str++))
+        hash = ((hash << 5) + hash) + c;
 
-  return hash % TABLE_SIZE;
+    return hash % TABLE_SIZE;
 }
 
 /**
@@ -71,19 +72,19 @@ unsigned long hash_djb2(const char *str) {
  * @return pointer to table
  */
 KWTable *kwtable_init(void) {
-  KWTable *table = (KWTable *)malloc(sizeof(KWTable));
+    KWTable *table = (KWTable *)malloc(sizeof(KWTable));
 
-  for (int i = 0; i < TABLE_SIZE; i++) {
-    table->table[i] = node_init(PLACEHOLDER);
-  }
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        table->table[i] = node_init(PLACEHOLDER);
+    }
 
-  unsigned int index;
-  for (int i = 0; i < NUM_CLASSES; i++) {
-    index = hash_djb2(classes[i]);
-    node_insert(table->table[index], classes[i]);
-  }
+    unsigned int index;
+    for (int i = 0; i < NUM_CLASSES; i++) {
+        index = hash_djb2(classes[i]);
+        node_insert(table->table[index], classes[i]);
+    }
 
-  return table;
+    return table;
 }
 
 /**
@@ -91,16 +92,18 @@ KWTable *kwtable_init(void) {
  * @return int value
  */
 bool kwtable_query(KWTable *table, const char *str) {
-  int index = hash_djb2(str);
-  Node *list = table->table[index];
-  bool ret_val = 0;
+    int index = hash_djb2(str);
+    Node *list = table->table[index];
+    bool ret_val = 0;
 
-  while (list != NULL) {
-    ret_val = !strcmp(list->keyword, str);
-    list = list->next;
-  }
+    while (list != NULL) {
+        ret_val = !strcmp(list->keyword, str);
+        if (ret_val)
+            break;
+        list = list->next;
+    }
 
-  return ret_val;
+    return ret_val;
 }
 
 /**
@@ -108,7 +111,7 @@ bool kwtable_query(KWTable *table, const char *str) {
  * @param table Pointer to table
  */
 void kwtable_free(KWTable *table) {
-  for (int i = 0; i < TABLE_SIZE; i++)
-    node_free(table->table[i]);
-  free(table);
+    for (int i = 0; i < TABLE_SIZE; i++)
+        node_free(table->table[i]);
+    free(table);
 }

@@ -118,12 +118,16 @@ void transform_line_to_tokens(char* line, Token_list* tl, KWTable* kwtable) {
             word[word_len] = '\0';
 
             if (kwtable_query(kwtable, word)) {
+                // Check if the word is a keyword
                 add_token(tl, new_token(symbol_keyword, word));
             } else if (is_letter(word[0])) {
+                // Check if the word is an identifier
                 add_token(tl, new_token(symbol_identifier, word));
             } else if (is_digit(word[0])) {
+                // Check if the word is a number
                 add_token(tl, new_token(symbol_number, word));
             } else {
+                // If the word is not a keyword, identifier or number, it's an error
                 add_token(tl, new_token(symbol_error, word));
             }
 
