@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 7.1.--><structure>
+	<type>fa</type>
+	<automaton>
+		<!--The list of states.-->
+		<state id="0" name="q0">
+			<x>175.0</x>
+			<y>402.0</y>
+			<initial/>
+		</state>
+		<state id="1" name="q1">
+			<x>377.0</x>
+			<y>206.0</y>
+		</state>
+		<state id="2" name="q2">
+			<x>494.0</x>
+			<y>144.0</y>
+			<final/>
+		</state>
+		<state id="3" name="q3">
+			<x>312.0</x>
+			<y>138.0</y>
+		</state>
+		<state id="4" name="q4">
+			<x>445.0</x>
+			<y>55.0</y>
+			<final/>
+		</state>
+		<state id="5" name="q5">
+			<x>43.0</x>
+			<y>524.0</y>
+		</state>
+		<state id="6" name="q6">
+			<x>395.0</x>
+			<y>262.0</y>
+		</state>
+		<state id="7" name="q7">
+			<x>74.0</x>
+			<y>278.0</y>
+		</state>
+		<state id="8" name="q8">
+			<x>406.0</x>
+			<y>309.0</y>
+		</state>
+		<state id="9" name="q9">
+			<x>419.0</x>
+			<y>353.0</y>
+		</state>
+		<state id="10" name="q10">
+			<x>423.0</x>
+			<y>399.0</y>
+		</state>
+		<state id="11" name="q11">
+			<x>426.0</x>
+			<y>447.0</y>
+		</state>
+		<state id="12" name="q12">
+			<x>421.0</x>
+			<y>495.0</y>
+		</state>
+		<state id="13" name="q13">
+			<x>496.0</x>
+			<y>231.0</y>
+			<final/>
+		</state>
+		<state id="14" name="q14">
+			<x>500.0</x>
+			<y>280.0</y>
+			<final/>
+		</state>
+		<state id="15" name="q15">
+			<x>507.0</x>
+			<y>332.0</y>
+			<final/>
+		</state>
+		<state id="16" name="q16">
+			<x>509.0</x>
+			<y>383.0</y>
+			<final/>
+		</state>
+		<state id="17" name="q17">
+			<x>511.0</x>
+			<y>436.0</y>
+			<final/>
+		</state>
+		<state id="18" name="q18">
+			<x>513.0</x>
+			<y>490.0</y>
+			<final/>
+		</state>
+		<state id="19" name="q19">
+			<x>401.0</x>
+			<y>540.0</y>
+		</state>
+		<state id="20" name="q20">
+			<x>370.0</x>
+			<y>720.0</y>
+		</state>
+		<state id="21" name="q21">
+			<x>321.0</x>
+			<y>751.0</y>
+		</state>
+		<state id="22" name="q22">
+			<x>389.0</x>
+			<y>587.0</y>
+		</state>
+		<state id="23" name="q23">
+			<x>498.0</x>
+			<y>544.0</y>
+			<final/>
+		</state>
+		<state id="24" name="q24">
+			<x>486.0</x>
+			<y>734.0</y>
+			<final/>
+		</state>
+		<state id="25" name="q25">
+			<x>356.0</x>
+			<y>897.0</y>
+			<final/>
+		</state>
+		<state id="26" name="q26">
+			<x>492.0</x>
+			<y>598.0</y>
+			<final/>
+		</state>
+		<state id="27" name="q27">
+			<x>386.0</x>
+			<y>632.0</y>
+		</state>
+		<state id="28" name="q28">
+			<x>380.0</x>
+			<y>676.0</y>
+		</state>
+		<state id="29" name="q29">
+			<x>492.0</x>
+			<y>647.0</y>
+			<final/>
+		</state>
+		<state id="30" name="q30">
+			<x>490.0</x>
+			<y>693.0</y>
+			<final/>
+		</state>
+		<state id="31" name="q31">
+			<x>424.0</x>
+			<y>799.0</y>
+		</state>
+		<state id="32" name="q32">
+			<x>515.0</x>
+			<y>799.0</y>
+			<final/>
+		</state>
+		<state id="33" name="q33">
+			<x>119.0</x>
+			<y>553.0</y>
+		</state>
+		<state id="34" name="q34">
+			<x>90.0</x>
+			<y>626.0</y>
+		</state>
+		<state id="35" name="q35">
+			<x>77.0</x>
+			<y>718.0</y>
+			<final/>
+		</state>
+		<state id="36" name="q36">
+			<x>384.0</x>
+			<y>842.0</y>
+		</state>
+		<state id="37" name="q37">
+			<x>512.0</x>
+			<y>845.0</y>
+			<final/>
+		</state>
+		<state id="38" name="q38">
+			<x>287.0</x>
+			<y>834.0</y>
+		</state>
+		<state id="39" name="q39">
+			<x>336.0</x>
+			<y>949.0</y>
+			<final/>
+		</state>
+		<!--The list of transitions.-->
+		<transition>
+			<from>0</from>
+			<to>0</to>
+			<read>' '|'\t'|'\n'</read>
+		</transition>
+		<transition>
+			<from>8</from>
+			<to>14</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>3</to>
+			<read>Digit</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>7</to>
+			<read>{</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>5</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>10</from>
+			<to>16</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>8</to>
+			<read>+</read>
+		</transition>
+		<transition>
+			<from>7</from>
+			<to>0</to>
+			<read>}</read>
+		</transition>
+		<transition>
+			<from>6</from>
+			<to>13</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>6</to>
+			<read>;</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>19</to>
+			<read>=</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>2</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>20</to>
+			<controlx>258</controlx>
+			<controly>578</controly>
+			<read>&lt;</read>
+		</transition>
+		<transition>
+			<from>31</from>
+			<to>32</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>33</to>
+			<read>:</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>4</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>21</to>
+			<read>&gt;</read>
+		</transition>
+		<transition>
+			<from>27</from>
+			<to>29</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>7</from>
+			<to>7</to>
+			<read>Letter | Digit | Symbol | ' ' | '\t' | '\n'</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>12</to>
+			<read>.</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>9</to>
+			<read>-</read>
+		</transition>
+		<transition>
+			<from>22</from>
+			<to>26</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>20</from>
+			<to>24</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>38</from>
+			<to>39</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>12</from>
+			<to>18</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read>Letter | Digit</read>
+		</transition>
+		<transition>
+			<from>28</from>
+			<to>30</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>20</from>
+			<to>31</to>
+			<read>&gt;</read>
+		</transition>
+		<transition>
+			<from>33</from>
+			<to>34</to>
+			<read>=</read>
+		</transition>
+		<transition>
+			<from>36</from>
+			<to>37</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>3</to>
+			<read>Digit</read>
+		</transition>
+		<transition>
+			<from>21</from>
+			<to>25</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>19</from>
+			<to>23</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>9</from>
+			<to>15</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>11</from>
+			<to>17</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>21</from>
+			<to>38</to>
+			<read>=</read>
+		</transition>
+		<transition>
+			<from>20</from>
+			<to>36</to>
+			<read>=</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>10</to>
+			<read>*</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>22</to>
+			<read>/</read>
+		</transition>
+		<transition>
+			<from>34</from>
+			<to>35</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read>Letter</read>
+		</transition>
+		<transition>
+			<from>33</from>
+			<to>5</to>
+			<read>other</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>11</to>
+			<read>,</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>27</to>
+			<read>(</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>28</to>
+			<controlx>274</controlx>
+			<controly>551</controly>
+			<read>)</read>
+		</transition>
+		<note>
+			<text>if reserved_word(str) = true
+   return(str,str)
+else
+   return(str,ident)
+backwards()</text>
+			<x>516.0</x>
+			<y>95.0</y>
+		</note>
+		<note>
+			<text>return(str,numero)
+backwards()</text>
+			<x>471.0</x>
+			<y>34.0</y>
+		</note>
+		<note>
+			<text>return(other,LEXICAL_ERROR)</text>
+			<x>15.0</x>
+			<y>442.0</y>
+		</note>
+		<note>
+			<text>return(;,simbolo_ponto_virgula)
+backwards()</text>
+			<x>512.0</x>
+			<y>191.0</y>
+		</note>
+		<note>
+			<text>return(+,simbolo_mais)
+backwards()</text>
+			<x>516.0</x>
+			<y>237.0</y>
+		</note>
+		<note>
+			<text>return(-,simbolo_menos)
+backwards()</text>
+			<x>527.0</x>
+			<y>284.0</y>
+		</note>
+		<note>
+			<text>return(*,simbolo_vezes)
+backwards()</text>
+			<x>522.0</x>
+			<y>327.0</y>
+		</note>
+		<note>
+			<text>return(,,simbolo_virgula)
+backwards()</text>
+			<x>530.0</x>
+			<y>376.0</y>
+		</note>
+		<note>
+			<text>return(.,simbolo_ponto)
+backwards()</text>
+			<x>531.0</x>
+			<y>424.0</y>
+		</note>
+		<note>
+			<text>return(=,simbolo_igual)
+backwards()</text>
+			<x>520.0</x>
+			<y>474.0</y>
+		</note>
+		<note>
+			<text>return(&lt;,simbolo_lkey)
+backwards()</text>
+			<x>508.0</x>
+			<y>649.0</y>
+		</note>
+		<note>
+			<text>return(/,simbolo_divisao)
+backwards()</text>
+			<x>518.0</x>
+			<y>525.0</y>
+		</note>
+		<note>
+			<text>return(&gt;,simbolo_rkey)
+backwards()</text>
+			<x>389.0</x>
+			<y>797.0</y>
+		</note>
+		<note>
+			<text>return((,simbolo_lparen)
+backwards()</text>
+			<x>514.0</x>
+			<y>570.0</y>
+		</note>
+		<note>
+			<text>return(),simbolo_rparen)
+backwards()</text>
+			<x>509.0</x>
+			<y>612.0</y>
+		</note>
+		<note>
+			<text>return(&lt;&gt;,simbolo_diferente)
+backwards()</text>
+			<x>536.0</x>
+			<y>699.0</y>
+		</note>
+		<note>
+			<text>return(:=,simbolo_atribuicao)
+backwards()</text>
+			<x>20.0</x>
+			<y>667.0</y>
+		</note>
+		<note>
+			<text>return(&lt;=,simbolo_menor_igual)
+backwards()</text>
+			<x>536.0</x>
+			<y>752.0</y>
+		</note>
+		<note>
+			<text>return(&gt;=,simbolo_maior_igual)
+backwards()</text>
+			<x>368.0</x>
+			<y>845.0</y>
+		</note>
+	</automaton>
+</structure>
