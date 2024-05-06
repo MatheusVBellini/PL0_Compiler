@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 7.1.--><structure>
+	<type>fa</type>
+	<automaton>
+		<!--The list of states.-->
+		<state id="0" name="q0">
+			<x>-245.0</x>
+			<y>804.0</y>
+			<initial/>
+		</state>
+		<state id="1" name="q1">
+			<x>144.0</x>
+			<y>460.0</y>
+		</state>
+		<state id="2" name="q2">
+			<x>-4.0</x>
+			<y>459.0</y>
+		</state>
+		<state id="3" name="q3">
+			<x>259.0</x>
+			<y>465.0</y>
+			<final/>
+		</state>
+		<state id="4" name="q4">
+			<x>92.0</x>
+			<y>723.0</y>
+		</state>
+		<state id="5" name="q5">
+			<x>-19.0</x>
+			<y>820.0</y>
+		</state>
+		<state id="6" name="q6">
+			<x>65.0</x>
+			<y>818.0</y>
+		</state>
+		<state id="7" name="q7">
+			<x>163.0</x>
+			<y>822.0</y>
+		</state>
+		<state id="8" name="q8">
+			<x>256.0</x>
+			<y>729.0</y>
+			<final/>
+		</state>
+		<state id="9" name="q9">
+			<x>256.0</x>
+			<y>826.0</y>
+			<final/>
+		</state>
+		<state id="10" name="q10">
+			<x>198.0</x>
+			<y>902.0</y>
+			<final/>
+		</state>
+		<state id="11" name="q11">
+			<x>-160.0</x>
+			<y>130.0</y>
+		</state>
+		<state id="12" name="q12">
+			<x>202.0</x>
+			<y>1024.0</y>
+			<final/>
+		</state>
+		<state id="13" name="q13">
+			<x>206.0</x>
+			<y>1085.0</y>
+			<final/>
+		</state>
+		<state id="14" name="q14">
+			<x>203.0</x>
+			<y>1147.0</y>
+			<final/>
+		</state>
+		<state id="15" name="q15">
+			<x>206.0</x>
+			<y>1206.0</y>
+			<final/>
+		</state>
+		<state id="16" name="q16">
+			<x>207.0</x>
+			<y>1267.0</y>
+			<final/>
+		</state>
+		<state id="17" name="q17">
+			<x>209.0</x>
+			<y>1337.0</y>
+			<final/>
+		</state>
+		<state id="18" name="q18">
+			<x>211.0</x>
+			<y>1396.0</y>
+			<final/>
+		</state>
+		<state id="19" name="q19">
+			<x>210.0</x>
+			<y>1461.0</y>
+			<final/>
+		</state>
+		<state id="20" name="q20">
+			<x>67.0</x>
+			<y>1527.0</y>
+		</state>
+		<state id="21" name="q21">
+			<x>196.0</x>
+			<y>1627.0</y>
+			<final/>
+		</state>
+		<state id="22" name="q22">
+			<x>200.0</x>
+			<y>1711.0</y>
+			<final/>
+		</state>
+		<state id="23" name="q23">
+			<x>13.0</x>
+			<y>541.0</y>
+		</state>
+		<state id="24" name="q24">
+			<x>144.0</x>
+			<y>549.0</y>
+		</state>
+		<state id="25" name="q25">
+			<x>240.0</x>
+			<y>551.0</y>
+		</state>
+		<state id="26" name="q26">
+			<x>345.0</x>
+			<y>553.0</y>
+		</state>
+		<state id="27" name="q27">
+			<x>456.0</x>
+			<y>551.0</y>
+			<final/>
+		</state>
+		<state id="28" name="q28">
+			<x>24.0</x>
+			<y>607.0</y>
+		</state>
+		<state id="29" name="q29">
+			<x>146.0</x>
+			<y>607.0</y>
+		</state>
+		<state id="30" name="q30">
+			<x>254.0</x>
+			<y>617.0</y>
+			<final/>
+		</state>
+		<state id="31" name="q31">
+			<x>198.0</x>
+			<y>1537.0</y>
+			<final/>
+		</state>
+		<state id="32" name="q32">
+			<x>-27.0</x>
+			<y>373.0</y>
+		</state>
+		<state id="33" name="q33">
+			<x>65.0</x>
+			<y>370.0</y>
+			<final/>
+		</state>
+		<state id="34" name="q34">
+			<x>-47.0</x>
+			<y>288.0</y>
+		</state>
+		<state id="35" name="q35">
+			<x>80.0</x>
+			<y>281.0</y>
+		</state>
+		<state id="36" name="q36">
+			<x>189.0</x>
+			<y>286.0</y>
+		</state>
+		<state id="37" name="q37">
+			<x>270.0</x>
+			<y>281.0</y>
+			<final/>
+		</state>
+		<state id="38" name="q38">
+			<x>268.0</x>
+			<y>223.0</y>
+			<final/>
+		</state>
+		<state id="39" name="q39">
+			<x>-113.0</x>
+			<y>227.0</y>
+		</state>
+		<state id="40" name="q40">
+			<x>-20.0</x>
+			<y>224.0</y>
+		</state>
+		<state id="41" name="q41">
+			<x>80.0</x>
+			<y>230.0</y>
+		</state>
+		<state id="42" name="q42">
+			<x>180.0</x>
+			<y>224.0</y>
+		</state>
+		<state id="43" name="q43">
+			<x>-59.0</x>
+			<y>116.0</y>
+		</state>
+		<state id="44" name="q44">
+			<x>46.0</x>
+			<y>111.0</y>
+		</state>
+		<state id="45" name="q45">
+			<x>159.0</x>
+			<y>111.0</y>
+		</state>
+		<state id="46" name="q46">
+			<x>263.0</x>
+			<y>126.0</y>
+			<final/>
+		</state>
+		<state id="47" name="q47">
+			<x>189.0</x>
+			<y>1822.0</y>
+			<final/>
+		</state>
+		<state id="48" name="q48">
+			<x>189.0</x>
+			<y>1765.0</y>
+			<final/>
+		</state>
+		<state id="49" name="q49">
+			<x>185.0</x>
+			<y>1889.0</y>
+			<final/>
+		</state>
+		<state id="50" name="q50">
+			<x>-112.0</x>
+			<y>1650.0</y>
+		</state>
+		<state id="51" name="q51">
+			<x>-43.0</x>
+			<y>1534.0</y>
+		</state>
+		<state id="52" name="q52">
+			<x>183.0</x>
+			<y>1956.0</y>
+			<final/>
+		</state>
+		<state id="53" name="q53">
+			<x>181.0</x>
+			<y>2011.0</y>
+			<final/>
+		</state>
+		<state id="54" name="q54">
+			<x>-176.0</x>
+			<y>1853.0</y>
+			<final/>
+		</state>
+		<!--The list of transitions.-->
+		<transition>
+			<from>5</from>
+			<to>10</to>
+			<read>outro</read>
+		</transition>
+		<transition>
+			<from>20</from>
+			<to>21</to>
+			<read>=</read>
+		</transition>
+		<transition>
+			<from>34</from>
+			<to>35</to>
+			<read>h</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>12</to>
+			<read>+</read>
+		</transition>
+		<transition>
+			<from>23</from>
+			<to>24</to>
+			<read>E</read>
+		</transition>
+		<transition>
+			<from>35</from>
+			<to>36</to>
+			<read>e</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>18</to>
+			<read>,</read>
+		</transition>
+		<transition>
+			<from>32</from>
+			<to>33</to>
+			<read>f</read>
+		</transition>
+		<transition>
+			<from>36</from>
+			<to>37</to>
+			<read>n</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>19</to>
+			<read>;</read>
+		</transition>
+		<transition>
+			<from>6</from>
+			<to>7</to>
+			<read>digito</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>13</to>
+			<read>-</read>
+		</transition>
+		<transition>
+			<from>4</from>
+			<to>4</to>
+			<read>letra</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>31</to>
+			<read>.</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>23</to>
+			<read>B</read>
+		</transition>
+		<transition>
+			<from>50</from>
+			<to>52</to>
+			<read>outro</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>2</to>
+			<read>V</read>
+		</transition>
+		<transition>
+			<from>41</from>
+			<to>42</to>
+			<read>l</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>14</to>
+			<read>*</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>50</to>
+			<read>&gt;</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>51</to>
+			<read>&lt;</read>
+		</transition>
+		<transition>
+			<from>39</from>
+			<to>40</to>
+			<read>h</read>
+		</transition>
+		<transition>
+			<from>7</from>
+			<to>9</to>
+			<read>outro</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>17</to>
+			<read>)</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>3</to>
+			<read>R</read>
+		</transition>
+		<transition>
+			<from>29</from>
+			<to>30</to>
+			<read>D</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>32</to>
+			<read>i</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>34</to>
+			<read>t</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>5</to>
+			<read>digito</read>
+		</transition>
+		<transition>
+			<from>42</from>
+			<to>38</to>
+			<read>e</read>
+		</transition>
+		<transition>
+			<from>24</from>
+			<to>25</to>
+			<read>G</read>
+		</transition>
+		<transition>
+			<from>5</from>
+			<to>6</to>
+			<read>.</read>
+		</transition>
+		<transition>
+			<from>28</from>
+			<to>29</to>
+			<read>N</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>39</to>
+			<read>w</read>
+		</transition>
+		<transition>
+			<from>26</from>
+			<to>27</to>
+			<read>N</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>4</to>
+			<read>letra</read>
+		</transition>
+		<transition>
+			<from>11</from>
+			<to>43</to>
+			<read>O</read>
+		</transition>
+		<transition>
+			<from>40</from>
+			<to>41</to>
+			<read>i</read>
+		</transition>
+		<transition>
+			<from>51</from>
+			<to>47</to>
+			<read>=</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>11</to>
+			<read>C</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>28</to>
+			<read>E</read>
+		</transition>
+		<transition>
+			<from>50</from>
+			<to>53</to>
+			<read>=</read>
+		</transition>
+		<transition>
+			<from>2</from>
+			<to>1</to>
+			<read>A</read>
+		</transition>
+		<transition>
+			<from>20</from>
+			<to>22</to>
+			<read>outro</read>
+		</transition>
+		<transition>
+			<from>6</from>
+			<to>10</to>
+			<read>outro</read>
+		</transition>
+		<transition>
+			<from>45</from>
+			<to>46</to>
+			<read>T</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>54</to>
+			<read>=</read>
+		</transition>
+		<transition>
+			<from>4</from>
+			<to>8</to>
+			<read>outro</read>
+		</transition>
+		<transition>
+			<from>51</from>
+			<to>49</to>
+			<read>&gt;</read>
+		</transition>
+		<transition>
+			<from>51</from>
+			<to>48</to>
+			<read>outro</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>15</to>
+			<read>/</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>20</to>
+			<read>:</read>
+		</transition>
+		<transition>
+			<from>25</from>
+			<to>26</to>
+			<read>I</read>
+		</transition>
+		<transition>
+			<from>43</from>
+			<to>44</to>
+			<read>N</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>16</to>
+			<read>(</read>
+		</transition>
+		<transition>
+			<from>44</from>
+			<to>45</to>
+			<read>S</read>
+		</transition>
+		<transition>
+			<from>4</from>
+			<to>4</to>
+			<read>digito</read>
+		</transition>
+		<transition>
+			<from>5</from>
+			<to>5</to>
+			<read>digito</read>
+		</transition>
+		<transition>
+			<from>7</from>
+			<to>7</to>
+			<read>digito</read>
+		</transition>
+		<note>
+			<text>return(VAR, VAR)</text>
+			<x>577.0</x>
+			<y>457.0</y>
+		</note>
+		<note>
+			<text>return(cadeia, ident)
+retroceder</text>
+			<x>577.0</x>
+			<y>716.0</y>
+		</note>
+		<note>
+			<text>return(ERROR)
+retroceder</text>
+			<x>518.0</x>
+			<y>885.0</y>
+		</note>
+		<note>
+			<text>return(cadeia, real)
+retroceder</text>
+			<x>572.0</x>
+			<y>815.0</y>
+		</note>
+		<note>
+			<text>return(MAIS)</text>
+			<x>529.0</x>
+			<y>1014.0</y>
+		</note>
+		<note>
+			<text>return(MENOS)</text>
+			<x>534.0</x>
+			<y>1076.0</y>
+		</note>
+		<note>
+			<text>return(VEZES)</text>
+			<x>517.0</x>
+			<y>1139.0</y>
+		</note>
+		<note>
+			<text>return(DIVISAO)</text>
+			<x>521.0</x>
+			<y>1200.0</y>
+		</note>
+		<note>
+			<text>return(ABRE_PARENTESES)</text>
+			<x>519.0</x>
+			<y>1260.0</y>
+		</note>
+		<note>
+			<text>return(FECHA_PARENTESES)</text>
+			<x>523.0</x>
+			<y>1332.0</y>
+		</note>
+		<note>
+			<text>return(VIRGULA)</text>
+			<x>528.0</x>
+			<y>1391.0</y>
+		</note>
+		<note>
+			<text>return(PONTO_VIGULA)</text>
+			<x>526.0</x>
+			<y>1454.0</y>
+		</note>
+		<note>
+			<text>return(ATRIB)</text>
+			<x>513.0</x>
+			<y>1620.0</y>
+		</note>
+		<note>
+			<text>return(ERROR)
+retroceder</text>
+			<x>514.0</x>
+			<y>1693.0</y>
+		</note>
+		<note>
+			<text>return(BEGIN, BEGIN)</text>
+			<x>770.0</x>
+			<y>541.0</y>
+		</note>
+		<note>
+			<text>return(END, END)</text>
+			<x>576.0</x>
+			<y>611.0</y>
+		</note>
+		<note>
+			<text>return(PONTO)</text>
+			<x>516.0</x>
+			<y>1527.0</y>
+		</note>
+		<note>
+			<text>return(if, IF)</text>
+			<x>384.0</x>
+			<y>361.0</y>
+		</note>
+		<note>
+			<text>return(then, THEN)</text>
+			<x>585.0</x>
+			<y>275.0</y>
+		</note>
+		<note>
+			<text>return(while, WHILE)</text>
+			<x>583.0</x>
+			<y>213.0</y>
+		</note>
+		<note>
+			<text>return(CONST, CONST)</text>
+			<x>578.0</x>
+			<y>119.0</y>
+		</note>
+		<note>
+			<text>return(&lt;, menor)
+retroceder</text>
+			<x>501.0</x>
+			<y>1749.0</y>
+		</note>
+		<note>
+			<text>return(&lt;=, menor_igual)</text>
+			<x>507.0</x>
+			<y>1813.0</y>
+		</note>
+		<note>
+			<text>return(&lt;&gt;, diferente)</text>
+			<x>500.0</x>
+			<y>1880.0</y>
+		</note>
+		<note>
+			<text>return(&gt;, maior)
+retroceder</text>
+			<x>501.0</x>
+			<y>1938.0</y>
+		</note>
+		<note>
+			<text>return(&gt;=, maior_igual)</text>
+			<x>497.0</x>
+			<y>2001.0</y>
+		</note>
+		<note>
+			<text>return(igual)</text>
+			<x>141.0</x>
+			<y>1840.0</y>
+		</note>
+	</automaton>
+</structure>
