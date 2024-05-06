@@ -75,6 +75,7 @@ END, END
 ```
 
 ## Authors
+- [Guilherme Augusto Moreira](https://github.com/GuilhermeAMoreira)
 - [Heitor Tanoue](https://github.com/heitortanoue)
 - [Matheus Bellini](https://github.com/MatheusVBellini)
 
