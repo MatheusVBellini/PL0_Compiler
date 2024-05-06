@@ -75,6 +75,7 @@ END, END
 ```
 
 ## Authors
+- [Beatriz Cardoso de Oliveira](https://github.com/trizcard)
 - [Guilherme Augusto Moreira](https://github.com/GuilhermeAMoreira)
 - [Heitor Tanoue](https://github.com/heitortanoue)
 - [Matheus Bellini](https://github.com/MatheusVBellini)
