@@ -8,7 +8,7 @@ OUT = lexical_analyser
 ZIP = LexicalAnalyser.zip
 
 # compilation flags
-FLAGS = -I./src -Wall -Wextra -pedantic -O3 -g
+FLAGS = -I./src -Wall -Wextra -pedantic -O3
 
 all: $(OUT)
 
@@ -30,6 +30,10 @@ zip:
 
 run:
 	./$(OUT)
+
+test: $(OUT)
+	g++ -o test tester.cpp
+	./test . && rm -f test
 
 # dependecies: clang-format
 format:

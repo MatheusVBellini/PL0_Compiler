@@ -1,0 +1,7 @@
+VAR n;
+BEGIN
+  n := 0;
+  BEGIN
+    n := n / 123;
+  END;
+END.

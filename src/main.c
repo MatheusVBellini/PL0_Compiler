@@ -5,13 +5,19 @@
 
 #define BUFFER_SIZE 1024
 
-int main() {
+int main(int argc, char *argv[]) {
     // declarations
-    FILE *input = fopen("input.txt", "r");
-    FILE *output = fopen("output.txt", "w");
+    FILE *input;
+    if (argc != 2) {
+        fprintf(stderr, "\033[1;31mError:\033[0m Usage: %s <input_file>\n", argv[0]);
+        exit(1);
+    }
+
+    // open files
+    input = fopen(argv[1], "r");
 
     // I/O error check
-    if (!input || !output) {
+    if (!input) {
         perror("Error opening files");
         exit(1);
     }
@@ -20,7 +26,6 @@ int main() {
     PL0_lexical_analyzer(input);
 
     fclose(input);
-    fclose(output);
 
     return 0;
 }

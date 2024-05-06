@@ -1,0 +1,26 @@
+CONST max = 100;
+VAR result, i, flag;
+
+PROCEDURE isOdd;
+VAR num;
+BEGIN
+  IF ODD num THEN
+    CALL printOdd;
+END;
+
+BEGIN
+  result := 0;
+  i := 1;
+  WHILE i <= max DO
+    BEGIN
+      IF i <> max THEN
+        result := result + i;
+      i := i * 1;
+    END;
+  IF result >= 50 THEN
+    BEGIN
+      flag := 1;
+      CALL isOdd;
+    END
+    flag := 0;
+END.

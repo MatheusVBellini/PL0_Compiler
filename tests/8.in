@@ -1,0 +1,8 @@
+VAR flag;
+PROCEDURE setTrue;
+BEGIN
+  flag := 1;
+END;
+BEGIN
+  CALL setTrue;
+END.

@@ -1,0 +1,17 @@
+VAR, VAR
+i, ident
+;, simbolo_ponto_virgula
+BEGIN, BEGIN
+WHILE, WHILE
+i, ident
+<, simbolo_menor
+10, numero
+DO, DO
+i, ident
+:=, simbolo_atribuicao
+i, ident
++, simbolo_mais
+1, numero
+;, simbolo_ponto_virgula
+END, END
+., simbolo_ponto

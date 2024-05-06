@@ -1,0 +1,5 @@
+VAR value;
+BEGIN
+  IF value <> 10 THEN
+    value := 10;
+END.

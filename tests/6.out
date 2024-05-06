@@ -1,0 +1,15 @@
+PROCEDURE, PROCEDURE
+increment, ident
+;, simbolo_ponto_virgula
+VAR, VAR
+num, ident
+;, simbolo_ponto_virgula
+BEGIN, BEGIN
+num, ident
+:=, simbolo_atribuicao
+num, ident
++, simbolo_mais
+1, numero
+;, simbolo_ponto_virgula
+END, END
+;, simbolo_ponto_virgula

@@ -1,0 +1,4 @@
+VAR y;
+BEGIN
+  y := 351 - 412;
+END.

@@ -1,0 +1,12 @@
+VAR, VAR
+y, ident
+;, simbolo_ponto_virgula
+BEGIN, BEGIN
+y, ident
+:=, simbolo_atribuicao
+351, numero
+-, simbolo_menos
+412, numero
+;, simbolo_ponto_virgula
+END, END
+., simbolo_ponto

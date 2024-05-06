@@ -5,6 +5,7 @@
 
 #define NUM_CLASSES 11
 
+// We use the hash table to store the reserved words
 static char classes[NUM_CLASSES][MAX_STR_LENGTH] = {
     "CONST", "VAR", "PROCEDURE", "CALL", "BEGIN", "END",
     "IF", "THEN", "WHILE", "DO", "ODD"};

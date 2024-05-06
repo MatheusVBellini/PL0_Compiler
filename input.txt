@@ -1,7 +1,0 @@
-VAR a,b,c;
-{ comentario legal }
-BEGIN
-        a:=2;
-        b:=3;
-        c:=@@@+b
-END.

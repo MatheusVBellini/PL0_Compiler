@@ -15,21 +15,21 @@ typedef enum {
     symbol_op_minus = 3,   // -
     symbol_op_times = 4,   // *
     symbol_op_slash = 5,   // /
-    symbol_rel_eq = 5,     // =
-    symbol_rel_neq = 6,    // <>
-    symbol_rel_lt = 7,     // <
-    symbol_rel_gt = 8,     // >
-    symbol_rel_le = 9,     // <=
-    symbol_rel_ge = 10,     // >=
-    symbol_lparen = 11,     // (
-    symbol_rparen = 12,     // )
-    symbol_comma = 13,      // ,
-    symbol_semicolon = 14,  // ;
-    symbol_period = 15,     // .
-    symbol_lkey = 16,       // {
-    symbol_rkey = 17,       // }
-    symbol_identifier = 18, // identifier
-    symbol_number = 19,     // number
+    symbol_rel_eq = 6,     // =
+    symbol_rel_neq = 7,    // <>
+    symbol_rel_lt = 8,     // <
+    symbol_rel_gt = 9,     // >
+    symbol_rel_le = 10,     // <=
+    symbol_rel_ge = 11,     // >=
+    symbol_lparen = 12,     // (
+    symbol_rparen = 13,     // )
+    symbol_comma = 14,      // ,
+    symbol_semicolon = 15,  // ;
+    symbol_period = 16,     // .
+    symbol_lkey = 17,       // {
+    symbol_rkey = 18,       // }
+    symbol_identifier = 19, // identifier
+    symbol_number = 20,     // number
 } token_type;
 
 typedef struct token {
