@@ -1,0 +1,15 @@
+VAR, VAR
+z, ident
+;, simbolo_ponto_virgula
+BEGIN, BEGIN
+IF, IF
+z, ident
+=, simbolo_igual
+0, numero
+THEN, THEN
+z, ident
+:=, simbolo_atribuicao
+1, numero
+;, simbolo_ponto_virgula
+END, END
+., simbolo_ponto

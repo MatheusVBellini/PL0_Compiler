@@ -150,8 +150,8 @@ void transform_line_to_tokens(char* line, Token_list* tl, KWTable* kwtable) {
             char word[PL0_MAX_TOKEN_SIZE];
             int word_len = 0;
 
-            // Read the whole word
-            while (is_alphanumeric(c)) {
+            // Read the whole word, '_' is also considered a valid character
+            while (is_alphanumeric(c) || c == '_') {
                 word[word_len++] = c;
                 i++;
                 if (line[i] == '\0') break;  // Check to avoid overflow if it's the end of the string
@@ -174,6 +174,7 @@ void transform_line_to_tokens(char* line, Token_list* tl, KWTable* kwtable) {
                 add_token(tl, new_token(symbol_error, word));
             }
 
+            // no increment here, the loop will do it
             continue;
         }
 
@@ -181,7 +182,11 @@ void transform_line_to_tokens(char* line, Token_list* tl, KWTable* kwtable) {
         if (c == ':' && line[i + 1] == '=') {
             add_token(tl, new_token(symbol_atrib, ":="));
             i += 2;  // Skip both characters
-        } else if (is_special_symbol(c)) {
+            continue;
+        }
+
+        // Check if the character is a symbol
+        if (is_special_symbol(c)) {
             char symbol[3] = {c, '\0', '\0'};
 
             // Check if the symbol is a two-character symbol and if the second character is the expected one
@@ -191,13 +196,13 @@ void transform_line_to_tokens(char* line, Token_list* tl, KWTable* kwtable) {
             }
             add_token(tl, new_token(get_symbol_id(symbol), symbol));
             i++;
-        } else {
-            char err[2] = {c, '\0'};
-            add_token(tl, new_token(symbol_error, err));
-            i++;
+            continue;
         }
 
-        i++;  // Move to the next character
+        // If the character is not a valid one, it's an error
+        char err[2] = {c, '\0'};
+        add_token(tl, new_token(symbol_error, err));
+        i++;
     }
 }
 

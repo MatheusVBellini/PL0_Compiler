@@ -1,0 +1,5 @@
+VAR z;
+BEGIN
+  IF z=0 THEN
+    z:=1;
+END.
