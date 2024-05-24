@@ -64,4 +64,11 @@ bool kwtable_query(KWTable *table, const char *str);
  */
 void kwtable_free(KWTable *table);
 
+/**
+ * @brief convert string to lowercase
+ * @param str String to be converted
+ * @return pointer to the lowercase string
+ */
+char *str_to_lower(const char *str);
+
 #endif

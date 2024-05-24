@@ -1,6 +1,8 @@
 #include "parser.h"
 
 #include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
 
 /**
  * @brief Check if a character is a digit
@@ -76,4 +78,13 @@ bool is_second_expected_char(char c, char next_c) {
  */
 bool is_space(char c) {
     return c == ' ' || c == '\t' || c == '\n';
+}
+
+char* str_to_upper(const char* str) {
+    char* upper_str = (char*)malloc(strlen(str) + 1);
+    for (int i = 0; str[i]; i++) {
+        upper_str[i] = toupper(str[i]);
+    }
+    upper_str[strlen(str)] = '\0';
+    return upper_str;
 }

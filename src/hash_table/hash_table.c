@@ -1,5 +1,6 @@
 #include "hash_table.h"
 
+#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -59,13 +60,29 @@ void node_free(Node *node) {
  * @return hash index
  */
 unsigned long hash_djb2(const char *str) {
+    char *lower_str = str_to_lower(str);
     unsigned long hash = 5381;
     int c;
 
-    while ((c = *str++))
+    while ((c = *lower_str++))
         hash = ((hash << 5) + hash) + c;
 
+    free(lower_str - strlen(str) - 1);  // Free the allocated memory for lower_str
     return hash % TABLE_SIZE;
+}
+
+/**
+ * @brief convert string to lowercase
+ * @param str String to be converted
+ * @return pointer to the lowercase string
+ */
+char *str_to_lower(const char *str) {
+    char *lower_str = (char *)malloc(strlen(str) + 1);
+    for (int i = 0; str[i]; i++) {
+        lower_str[i] = tolower(str[i]);
+    }
+    lower_str[strlen(str)] = '\0';
+    return lower_str;
 }
 
 /**
@@ -93,17 +110,19 @@ KWTable *kwtable_init(void) {
  * @return int value
  */
 bool kwtable_query(KWTable *table, const char *str) {
-    int index = hash_djb2(str);
+    char *lower_str = str_to_lower(str);
+    int index = hash_djb2(lower_str);
     Node *list = table->table[index];
     bool ret_val = 0;
 
     while (list != NULL) {
-        ret_val = !strcmp(list->keyword, str);
+        ret_val = !strcmp(str_to_lower(list->keyword), lower_str);
         if (ret_val)
             break;
         list = list->next;
     }
 
+    free(lower_str);  // Free the allocated memory for lower_str
     return ret_val;
 }
 

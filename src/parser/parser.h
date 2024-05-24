@@ -10,5 +10,6 @@ bool is_special_symbol(char c);
 bool is_possible_double_char_symbol(char c);
 bool is_second_expected_char(char c, char next_c);
 bool is_space(char c);
+char* str_to_upper(const char* str);
 
 #endif

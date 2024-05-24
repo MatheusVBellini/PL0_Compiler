@@ -1,0 +1,4 @@
+VAR count; { This is a comment }
+BEGIN
+  count := 0; { Unclosed comment
+END.

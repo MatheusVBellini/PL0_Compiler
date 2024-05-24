@@ -204,6 +204,11 @@ void transform_line_to_tokens(char* line, Token_list* tl, KWTable* kwtable) {
         add_token(tl, new_token(symbol_error, err));
         i++;
     }
+
+    if (is_comment) {
+        // If the comment is not closed, it's an error
+        add_token(tl, new_token(symbol_error, "COMMENT_NOT_CLOSED"));
+    }
 }
 
 /**
@@ -215,8 +220,10 @@ void print_tokens(Token_list* tl) {
         Token token = tl->tokens[i];
 
         if (token.type == symbol_keyword) {
-            // keyword, print the own value
-            printf("%s, %s\n", token.value, token.value);
+            // keyword, print the value in uppercase
+            char* upper = str_to_upper(token.value);
+            printf("%s, %s\n", token.value, upper);
+            free(upper);
             continue;
         }
 
