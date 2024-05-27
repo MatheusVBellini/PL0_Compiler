@@ -3,9 +3,9 @@ COMPILER ?= gcc
 
 SRCS := $(wildcard src/**/*.c) src/main.c
 OBJ = $(SRCS:.c=.o)
-OUT = lexical_analyser
+OUT = compiler
 
-ZIP = LexicalAnalyser.zip
+ZIP = compiler.zip
 
 # compilation flags
 FLAGS = -I./src -Wall -Wextra -pedantic -O3

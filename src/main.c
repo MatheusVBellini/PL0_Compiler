@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "lexical_analyzer/lexical_analyzer.h"
+#include "pl0_compiler/pl0_compiler.h"
 
 #define BUFFER_SIZE 1024
 
@@ -22,8 +22,8 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
-    // run lexical analyzer
-    PL0_lexical_analyzer(input);
+    // run compiler
+    PL0_compiler(input);
 
     fclose(input);
 

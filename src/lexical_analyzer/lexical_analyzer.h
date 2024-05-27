@@ -1,8 +1,10 @@
-#ifndef LEXICAL_ANALYZER_H
-#define LEXICAL_ANALYZER_H
+#ifndef PL0_LEXICAL_ANALYZER_H
+#define PL0_LEXICAL_ANALYZER_H
 
 #include <stdio.h>
 #include <stdbool.h>
+
+#include "hash_table/hash_table.h"
 
 #define PL0_MAX_TOKEN_SIZE 64
 #define PL0_MAX_TOKEN_NUMBER 1024
@@ -47,12 +49,19 @@ typedef struct symbol_entry {
     token_type type;
 } Symbol_entry;
 
+typedef struct compiler_state {
+    FILE *input;
+    Token_list *token_list;
+    KWTable *kwtable;
+    int current_line;
+} Compiler_state;
+
 // int get_reserved_word_id(char *word);
 bool is_digit(char c);
 bool is_letter(char c);
 bool is_alphanumeric(char c);
 Token new_token(token_type type, char* value);
-
-void PL0_lexical_analyzer(FILE *file);
+Token* get_next_token(Compiler_state* state);
+void print_tokens(Token_list* tl);
 
 #endif

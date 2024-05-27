@@ -4,7 +4,7 @@
 #include <string.h>
 
 #include "hash_table/hash_table.h"
-#include "parser/parser.h"
+#include "utils/utils.h"
 
 // Used to relate the symbol name with its ID
 Symbol_entry symbols[] = {
@@ -237,25 +237,22 @@ void print_tokens(Token_list* tl) {
     }
 }
 
-/**
- * @brief Run the lexical analyzer on the given file
- * @param file File pointer
- */
-void PL0_lexical_analyzer(FILE* file) {
-    Token_list token_list;
+Token* get_next_token(Compiler_state* s) {
+    static int i = 0;
 
-    token_list.tokens = (Token*)malloc(sizeof(Token) * 1024);
-    token_list.count = 0;
-
-    // init keyword table
-    KWTable* kwtable = kwtable_init();
-
-    char line[PL0_MAX_TOKEN_SIZE];
-
-    // iterate over the file, line by line
-    while (fgets(line, PL0_MAX_TOKEN_SIZE, file)) {
-        transform_line_to_tokens(line, &token_list, kwtable);
+    // Check if there are more tokens to return
+    if (i < s->token_list->count) {
+        return &s->token_list->tokens[i++];
     }
 
-    print_tokens(&token_list);
+    // If there are no more tokens, try to read next line
+    char line[PL0_MAX_TOKEN_SIZE];
+    if (fgets(line, PL0_MAX_TOKEN_SIZE, s->input)) {
+        transform_line_to_tokens(line, s->token_list, s->kwtable);
+        s->current_line++;
+        return get_next_token(s);
+    }
+
+    // If there are no more lines, return NULL
+    return NULL;
 }

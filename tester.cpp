@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
-    string program = "./lexical_analyser";
+    string program = "./compiler";
 
     vector<tuple<string, bool, double>> results;
 

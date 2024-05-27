@@ -1,5 +1,5 @@
-#ifndef PARSER_H
-#define PARSER_H
+#ifndef PL0_UTILS_H
+#define PL0_UTILS_H
 
 #include <stdbool.h>
 
