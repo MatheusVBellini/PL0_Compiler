@@ -10,24 +10,17 @@
  * @param file File pointer
  */
 void PL0_compiler(FILE* file) {
-    Token_list token_list;
-
-    token_list.tokens = (Token*)malloc(sizeof(Token) * 1024);
-    token_list.count = 0;
-
     // init keyword table
     KWTable* kwtable = kwtable_init();
 
     // init state
     Compiler_state state;
     state.input = file;
-    state.token_list = &token_list;
     state.kwtable = kwtable;
-    state.current_line = 1;
+    state.current_line = 0;
 
-    while (get_next_token(&state) != NULL) {
-        // vamos tirar esse while e o print_tokens depois
+    while (true) {
+        get_next_token(&state);
+        if (state.token == NULL) break;
     }
-
-    print_tokens(&token_list);
 }

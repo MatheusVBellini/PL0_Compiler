@@ -5,6 +5,9 @@
 
 #include "hash_table/hash_table.h"
 #include "utils/utils.h"
+#include "compiler_errors/compiler_errors.h"
+
+#define COMMENT_CLOSED -1
 
 // Used to relate the symbol name with its ID
 Symbol_entry symbols[] = {
@@ -86,173 +89,187 @@ char* get_symbol_name(int symbol_id) {
 }
 
 /**
- * @brief Add a token to the token list
- * @param tl Token list
- * @param token Token to be added
- */
-void add_token(Token_list* tl, Token token) {
-    tl->tokens[tl->count] = token;
-    tl->count++;
-}
-
-/**
  * @brief Create a new token
  * @param type Token type
  * @param value Token value
- * @return Token
+ * @return Token*
  */
-Token new_token(token_type type, char* value) {
-    Token token;
-    token.type = type;
-    strcpy(token.value, value);
+Token* new_token(token_type type, char* value) {
+    Token* token = (Token*)malloc(sizeof(Token));
+    token->type = type;
+    strcpy(token->value, value);
 
     return token;
 }
 
 /**
- * @brief Transform a given line into tokens in the token list
- * @param line Line to be transformed
- * @param tl Token list to store the tokens
- * @param kwtable Keyword table
+ * @brief Add a token to the compiler state
+ * @param s Compiler state
+ * @param token The token to be added
  */
-void transform_line_to_tokens(char* line, Token_list* tl, KWTable* kwtable) {
-    bool is_comment = false;  // Flag to check if the current line is a comment
-    int i = 0;
-    char c;
-
-    while (line[i] != '\0') {
-        c = line[i];
-
-        // Skip comments
-        if (is_comment) {
-            if (c == '}') {
-                is_comment = false;
-            }
-            i++;
-            continue;
-        }
-
-        // Check if a comment starts
-        if (c == '{') {
-            is_comment = true;
-            i++;
-            continue;
-        }
-
-        // Skip spaces
-        if (is_space(c)) {
-            i++;
-            continue;
-        }
-
-        // Handle numbers, identifiers, symbols and errors
-        if (is_alphanumeric(c)) {
-            char word[PL0_MAX_TOKEN_SIZE];
-            int word_len = 0;
-
-            // Read the whole word, '_' is also considered a valid character
-            while (is_alphanumeric(c) || c == '_') {
-                word[word_len++] = c;
-                i++;
-                if (line[i] == '\0') break;  // Check to avoid overflow if it's the end of the string
-                c = line[i];
-            }
-
-            word[word_len] = '\0';
-
-            if (kwtable_query(kwtable, word)) {
-                // Check if the word is a keyword
-                add_token(tl, new_token(symbol_keyword, word));
-            } else if (is_letter(word[0])) {
-                // Check if the word is an identifier
-                add_token(tl, new_token(symbol_identifier, word));
-            } else if (is_digit(word[0])) {
-                // Check if the word is a number
-                add_token(tl, new_token(symbol_number, word));
-            } else {
-                // If the word is not a keyword, identifier or number, it's an error
-                add_token(tl, new_token(symbol_error, word));
-            }
-
-            // no increment here, the loop will do it
-            continue;
-        }
-
-        // Handle compound symbols and error reporting
-        if (c == ':' && line[i + 1] == '=') {
-            add_token(tl, new_token(symbol_atrib, ":="));
-            i += 2;  // Skip both characters
-            continue;
-        }
-
-        // Check if the character is a symbol
-        if (is_special_symbol(c)) {
-            char symbol[3] = {c, '\0', '\0'};
-
-            // Check if the symbol is a two-character symbol and if the second character is the expected one
-            if (is_possible_double_char_symbol(c) && is_second_expected_char(c, line[i + 1])) {
-                symbol[1] = line[i + 1];
-                i++;  // Advance an extra character
-            }
-            add_token(tl, new_token(get_symbol_id(symbol), symbol));
-            i++;
-            continue;
-        }
-
-        // If the character is not a valid one, it's an error
-        char err[2] = {c, '\0'};
-        add_token(tl, new_token(symbol_error, err));
-        i++;
-    }
-
-    if (is_comment) {
-        // If the comment is not closed, it's an error
-        add_token(tl, new_token(symbol_error, "COMMENT_NOT_CLOSED"));
-    }
+void add_token_to_state(Compiler_state* s, Token* token) {
+    s->token = token;
 }
 
 /**
- * @brief Print the tokens in the token list
- * @param tl Token list
+ * @brief Get the next token from the input file and store it in the state
+ * @param s Compiler state
  */
-void print_tokens(Token_list* tl) {
-    for (int i = 0; i < tl->count; i++) {
-        Token token = tl->tokens[i];
+void get_next_token(Compiler_state* s) {
+    static char line[PL0_MAX_TOKEN_SIZE];
+    static int line_index = 0;
+    static bool end_of_line = true;
+    static int comment_opened_in_line = COMMENT_CLOSED;
 
-        if (token.type == symbol_keyword) {
-            // keyword, print the value in uppercase
-            char* upper = str_to_upper(token.value);
-            printf("%s, %s\n", token.value, upper);
-            free(upper);
-            continue;
+    char c;
+
+    while (true) {
+        if (end_of_line) {
+            if (fgets(line, PL0_MAX_TOKEN_SIZE, s->input)) {
+                line_index = 0;
+                end_of_line = false;
+                s->current_line++;
+            } else {
+                // If there are no more lines, add a NULL token to the state
+                add_token_to_state(s, NULL);
+                break;
+            }
         }
 
-        char* name = get_symbol_name(token.type);
-        if (name == NULL) {
-            printf("%s, NO_NAME (id = %d)\n", token.value, token.type);
-            continue;
+        while ((c = line[line_index]) != '\0') {
+            // Skip comments
+            if (comment_opened_in_line != COMMENT_CLOSED) {
+                if (c == '}') {
+                    comment_opened_in_line = COMMENT_CLOSED;
+                }
+                line_index++;
+                continue;
+            }
+
+            // Check if a comment starts
+            if (c == '{') {
+                comment_opened_in_line = s->current_line;
+                line_index++;
+                continue;
+            }
+
+            // Skip spaces
+            if (is_space(c)) {
+                line_index++;
+                continue;
+            }
+
+            // Handle numbers, identifiers, symbols and errors
+            if (is_alphanumeric(c)) {
+                char word[PL0_MAX_TOKEN_SIZE];
+                int word_len = 0;
+
+                // Read the whole word, '_' is also considered a valid character
+                while (is_alphanumeric(c) || c == '_') {
+                    word[word_len++] = c;
+                    line_index++;
+                    if (line[line_index] == '\0') break;  // Check to avoid overflow if it's the end of the string
+                    c = line[line_index];
+                }
+                word[word_len] = '\0';
+
+                if (kwtable_query(s->kwtable, word)) {
+                    // Check if the word is a keyword
+                    add_token_to_state(s, new_token(symbol_keyword, word));
+                } else if (is_letter(word[0])) {
+                    // Check if the word is an identifier
+                    add_token_to_state(s, new_token(symbol_identifier, word));
+                } else if (is_digit(word[0])) {
+                    // Check if the word is a number
+                    add_token_to_state(s, new_token(symbol_number, word));
+                } else {
+                    // If the word is not a keyword, identifier or number, it's an error
+                    add_token_to_state(s, new_token(symbol_error, word));
+                }
+
+                continue;
+            }
+
+            // Handle compound symbols and error reporting
+            if (c == ':' && line[line_index + 1] == '=') {
+                add_token_to_state(s, new_token(symbol_atrib, ":="));
+                line_index += 2;  // Skip the two characters
+                continue;
+            }
+
+            // Check if the character is a symbol
+            if (is_special_symbol(c)) {
+                char symbol[3] = {c, '\0', '\0'};
+
+                // Check if the symbol is a two-character symbol and if the second character is the expected one
+                if (is_possible_double_char_symbol(c) && is_second_expected_char(c, line[line_index + 1])) {
+                    symbol[1] = line[line_index + 1];
+                    line_index++;
+                }
+                add_token_to_state(s, new_token(get_symbol_id(symbol), symbol));
+                line_index++;
+                continue;
+            }
+
+            // If the character is not a valid one, it's an error
+            char err[2] = {c, '\0'};
+            add_token_to_state(s, new_token(symbol_error, err));
+            line_index++;
         }
 
-        printf("%s, %s\n", token.value, name);
+        // If we've processed the whole line, set the end_of_line flag
+        end_of_line = true;
+    }
+
+    // If we reach this point, it means we've reached the end of the file
+    // Check if there are comments that were not closed
+    if (comment_opened_in_line != COMMENT_CLOSED) {
+        throw_error(ERR_COMMENT_NOT_CLOSED, comment_opened_in_line);
     }
 }
 
-Token* get_next_token(Compiler_state* s) {
-    static int i = 0;
-
-    // Check if there are more tokens to return
-    if (i < s->token_list->count) {
-        return &s->token_list->tokens[i++];
+void print_token(Token* token) {
+    if (token == NULL) {
+        return;
     }
 
-    // If there are no more tokens, try to read next line
-    char line[PL0_MAX_TOKEN_SIZE];
-    if (fgets(line, PL0_MAX_TOKEN_SIZE, s->input)) {
-        transform_line_to_tokens(line, s->token_list, s->kwtable);
-        s->current_line++;
-        return get_next_token(s);
+    if (token->type == symbol_keyword) {
+        // keyword, print the value in uppercase
+        char* upper = str_to_upper(token->value);
+        printf("%s, %s\n", token->value, upper);
+        free(upper);
+        return;
     }
 
-    // If there are no more lines, return NULL
-    return NULL;
+    char* name = get_symbol_name(token->type);
+    if (name == NULL) {
+        printf("%s, NO_NAME (id = %d)\n", token->value, token->type);
+        return;
+    }
+
+    printf("%s, %s\n", token->value, name);
 }
+
+/**
+ * @brief Get the next token from the input file and store it in the state
+ * @param s Compiler state
+ */
+// void get_next_token(Compiler_state* s) {
+//     static int i = 0;
+
+//     // Check if there are more tokens to return
+//     if (i < s->token_list->count) {
+//         return &s->token_list->tokens[i++];
+//     }
+
+//     // If there are no more tokens, try to read next line
+//     char line[PL0_MAX_TOKEN_SIZE];
+//     if (fgets(line, PL0_MAX_TOKEN_SIZE, s->input)) {
+//         transform_line_to_tokens(line, s->token_list, s->kwtable);
+//         s->current_line++;
+//         return get_next_token(s);
+//     }
+
+//     // If there are no more lines, return NULL
+//     return NULL;
+// }

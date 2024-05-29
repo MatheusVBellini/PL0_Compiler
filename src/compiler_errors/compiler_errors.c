@@ -4,6 +4,7 @@
 
 PL0_Error errors_table[] = {
     {ERR_NO_FINAL_PERIOD, "Expected a period at the end of the program"},
+    {ERR_COMMENT_NOT_CLOSED, "Comment not closed"},
 };
 
 // crie uma funcao que pega um codigo de erro e retorna uma mensagem de erro
