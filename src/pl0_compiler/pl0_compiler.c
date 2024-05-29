@@ -19,8 +19,5 @@ void PL0_compiler(FILE* file) {
     state.kwtable = kwtable;
     state.current_line = 0;
 
-    while (true) {
-        get_next_token(&state);
-        if (state.token == NULL) break;
-    }
+    PL0_syntactic_analyzer(&state);
 }

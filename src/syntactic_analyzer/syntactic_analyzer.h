@@ -5,7 +5,10 @@
 
 void PL0_syntactic_analyzer(Compiler_state* state);
 
-void PROC_programa(Token* t, Compiler_state* state);
-void PROC_bloco(Token* t, Compiler_state* state);
+void PROC_programa(Compiler_state* state);
+void PROC_bloco(Compiler_state* state);
+void PROC_constante(Compiler_state* state);
+void PROC_declaracao(Compiler_state* state);
+void PROC_comando(Compiler_state* state);
 
 #endif

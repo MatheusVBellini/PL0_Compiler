@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "compiler_errors/compiler_errors.h"
+#include "lexical_analyzer/lexical_analyzer.h"
+
 /**
  * @brief Check if a character is a digit
  * @param c Character
@@ -87,4 +90,27 @@ char* str_to_upper(const char* str) {
     }
     upper_str[strlen(str)] = '\0';
     return upper_str;
+}
+
+bool is_equal_token_types(Token* t, int type) {
+    if (t == NULL) {
+        throw_error(ERR_UNEXPECTED_EOF, 0);
+    };
+
+    return t->type == type;
+}
+
+bool is_equal_keywords(Token* t, const char* value) {
+    if (t == NULL) {
+        throw_error(ERR_UNEXPECTED_EOF, 0);
+    };
+
+    if (t->type == symbol_keyword) {
+        char* upper = str_to_upper(t->value);
+        bool result = strcmp(upper, value) == 0;
+        free(upper);
+        return result;
+    }
+
+    return false;
 }

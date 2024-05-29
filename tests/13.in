@@ -1,4 +1,7 @@
 VAR count; { This is a comment }
+{
+    multi-line comments
+}
 BEGIN
   count := 0; { Unclosed comment
 END.
