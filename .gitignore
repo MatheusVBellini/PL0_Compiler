@@ -2,3 +2,5 @@ output.txt
 compiler
 test
 /.vscode
+.dependencygraph/setting.json
+src/Gramática de PL0.pdf
