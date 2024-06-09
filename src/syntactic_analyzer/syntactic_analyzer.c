@@ -312,8 +312,8 @@ void PROC_condicao(Compiler_state* state) {
     }
 }
 
-// <relacao> ::= = | <> | < | <= | > | >=
-void PROC_relacao(Compiler_state* state) {
+// <relacional> ::= = | <> | < | <= | > | >=
+void PROC_relacional(Compiler_state* state) {
     if (is_equal_token_types(state->token, symbol_rel_eq) || 
         is_equal_token_types(state->token, symbol_rel_neq) || 
         is_equal_token_types(state->token, symbol_rel_lt) || 
