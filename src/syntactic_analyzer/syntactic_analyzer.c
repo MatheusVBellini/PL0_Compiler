@@ -314,11 +314,11 @@ void PROC_condicao(Compiler_state* state) {
 
 // <relacional> ::= = | <> | < | <= | > | >=
 void PROC_relacional(Compiler_state* state) {
-    if (is_equal_token_types(state->token, symbol_rel_eq) || 
+    if (is_equal_token_types(state->token, symbol_rel_eq)  || 
         is_equal_token_types(state->token, symbol_rel_neq) || 
-        is_equal_token_types(state->token, symbol_rel_lt) || 
-        is_equal_token_types(state->token, symbol_rel_le) || 
-        is_equal_token_types(state->token, symbol_rel_gt) || 
+        is_equal_token_types(state->token, symbol_rel_lt)  || 
+        is_equal_token_types(state->token, symbol_rel_le)  || 
+        is_equal_token_types(state->token, symbol_rel_gt)  || 
         is_equal_token_types(state->token, symbol_rel_ge)) {
         get_next_token(state);
     } else {
