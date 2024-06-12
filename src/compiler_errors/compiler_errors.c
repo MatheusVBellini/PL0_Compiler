@@ -6,6 +6,9 @@ PL0_Error errors_table[] = {
     {ERR_NO_FINAL_PERIOD, "Expected a period at the end of the program"},
     {ERR_COMMENT_NOT_CLOSED, "Comment not closed"},
     {ERR_UNEXPECTED_EOF, "Unexpected end of file"},
+    {ERR_LEXICAL_INVALID_SYMBOL, "Invalid symbol"},
+    {ERR_LEXICAL_INVALID_NUMBER, "Invalid number"},
+    {ERR_LEXICAL_INVALID_IDENTIFIER, "Invalid identifier"}
 };
 
 // crie uma funcao que pega um codigo de erro e retorna uma mensagem de erro
