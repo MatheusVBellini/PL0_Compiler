@@ -4,6 +4,9 @@
 
 #include <stdio.h>
 
+const token_type sync_tokens[] = {symbol_semicolon, symbol_period};
+const int num_sync_tokens = sizeof(sync_tokens) / sizeof(sync_tokens[0]);
+
 PL0_Error errors_table[] = {
     {ERR_NO_FINAL_PERIOD, "Expected a period at the end of the program"},
     {ERR_COMMENT_NOT_CLOSED, "Comment not closed"},
@@ -36,16 +39,16 @@ void throw_error(int error_code, int line) {
 
 void panic_mode(Compiler_state* state) {
     // Continuar obtendo o próximo token até que encontremos um que possa sincronizar a análise
-    while (!is_sync_token(state->token)){
-        printf("Descartando token: %d na linha %d\n", state->token, state->current_line);
+    while (!is_sync_token(state->token->type)){
+        printf("Descartando token: %d na linha %d\n", state->token->type, state->current_line);
         get_next_token(state);
     }
-    printf("Recuperação completa. Retomando análise no token: %d na linha %d\n", state->token, state->current_line);
+    printf("Recuperação completa. Retomando análise no token: %d na linha %d\n", state->token->type, state->current_line);
 }
 
-int is_sync_token(int token_type) {
+int is_sync_token(token_type type) {
     for (int i = 0; i < num_sync_tokens; i++) {
-        if (token_type == sync_tokens[i]) {
+        if (type == sync_tokens[i]) {
             return 1;
         }
     }

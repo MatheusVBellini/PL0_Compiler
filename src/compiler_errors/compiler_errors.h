@@ -3,8 +3,6 @@
 
 #include "lexical_analyzer/lexical_analyzer.h"
 
-const int sync_tokens[] = {symbol_semicolon, symbol_period};
-const int num_sync_tokens = sizeof(sync_tokens) / sizeof(sync_tokens[0]);
 
 typedef enum {
     ERR_LEXICAL_INVALID_SYMBOL = 1,

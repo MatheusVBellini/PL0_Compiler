@@ -19,7 +19,7 @@ void PROC_programa(Compiler_state* state) {
         get_next_token(state);
     } else {
         throw_error(ERR_NO_FINAL_PERIOD, state->current_line);
-        panic_mode(state, symbol_period);
+        panic_mode(state);
     }
 }
 
@@ -51,19 +51,19 @@ void PROC_constante(Compiler_state* state) {
                         get_next_token(state);
                     } else {
                         throw_error(ERR_LEXICAL_INVALID_SYMBOL, state->current_line);
-                        panic_mode(state, symbol_semicolon);
+                        panic_mode(state);
                     }
                } else {
                     throw_error(ERR_LEXICAL_INVALID_NUMBER, state->current_line);
-                    panic_mode(state, symbol_number);
+                    panic_mode(state);
                }
             } else {
                 throw_error(ERR_LEXICAL_INVALID_SYMBOL, state->current_line);
-                panic_mode(state, symbol_rel_eq);
+                panic_mode(state);
             }
         } else {
             throw_error(ERR_LEXICAL_INVALID_IDENTIFIER, state->current_line);
-            panic_mode(state, symbol_identifier);
+            panic_mode(state);
         }
         return;
     }
@@ -83,15 +83,15 @@ void PROC_mais_const(Compiler_state* state) {
                     PROC_mais_const(state);
                 } else {
                     throw_error(ERR_LEXICAL_INVALID_NUMBER, state->current_line);
-                    panic_mode(state, symbol_number);
+                    panic_mode(state);
                 }
             } else {
                 throw_error(ERR_LEXICAL_INVALID_SYMBOL, state->current_line);
-                panic_mode(state, symbol_rel_eq);
+                panic_mode(state);
             }
         } else {
             throw_error(ERR_LEXICAL_INVALID_IDENTIFIER, state->current_line);
-            panic_mode(state, symbol_identifier);
+            panic_mode(state);
         }
     }
     return; // ε
@@ -108,11 +108,11 @@ void PROC_variavel(Compiler_state* state) {
                 get_next_token(state);
             } else {
                 throw_error(ERR_LEXICAL_INVALID_SYMBOL, state->current_line);
-                panic_mode(state, symbol_semicolon);
+                panic_mode(state);
             }
         } else {
             throw_error(ERR_LEXICAL_INVALID_IDENTIFIER, state->current_line);
-            panic_mode(state, symbol_identifier);
+            panic_mode(state);
         }
         return;
     }
@@ -128,7 +128,7 @@ void PROC_mais_var(Compiler_state* state) {
             PROC_mais_var(state);
         } else {
             throw_error(ERR_LEXICAL_INVALID_IDENTIFIER, state->current_line);
-            panic_mode(state, symbol_identifier);
+            panic_mode(state);
         }
     }
     return; // ε
@@ -148,15 +148,15 @@ void PROC_procedimento(Compiler_state* state) {
                     PROC_procedimento(state);
                 } else {
                     throw_error(ERR_LEXICAL_INVALID_SYMBOL, state->current_line);
-                    panic_mode(state, symbol_semicolon);
+                    panic_mode(state);
                 }
             } else {
                 throw_error(ERR_LEXICAL_INVALID_SYMBOL, state->current_line);
-                panic_mode(state, symbol_semicolon);
+                panic_mode(state);
             }
         } else {
             throw_error(ERR_LEXICAL_INVALID_IDENTIFIER, state->current_line);
-            panic_mode(state, symbol_identifier);
+            panic_mode(state);
         }
         return;
     }
@@ -185,7 +185,7 @@ void PROC_comando(Compiler_state* state) {
             get_next_token(state);
         } else {
             throw_error(ERR_LEXICAL_INVALID_IDENTIFIER, state->current_line);
-            panic_mode(state, symbol_identifier);
+            panic_mode(state);
         }
         return;
     }
@@ -198,7 +198,7 @@ void PROC_comando(Compiler_state* state) {
             get_next_token(state);
         } else {
             throw_error(ERR_LEXICAL_INVALID_SYMBOL, state->current_line);
-            panic_mode(state, symbol_keyword);
+            panic_mode(state);
         }
         return;
     }
@@ -211,7 +211,7 @@ void PROC_comando(Compiler_state* state) {
             PROC_comando(state);
         } else {
             throw_error(ERR_LEXICAL_INVALID_SYMBOL, state->current_line);
-            panic_mode(state, symbol_keyword);
+            panic_mode(state);
         }
         return;
     }
@@ -224,7 +224,7 @@ void PROC_comando(Compiler_state* state) {
             PROC_comando(state);
         } else {
             throw_error(ERR_LEXICAL_INVALID_SYMBOL, state->current_line);
-            panic_mode(state, symbol_keyword);
+            panic_mode(state);
         }
         return;
     }
@@ -294,15 +294,15 @@ void PROC_fator(Compiler_state* state) {
             get_next_token(state);
         } else {
             throw_error(ERR_LEXICAL_INVALID_SYMBOL, state->current_line);
-            panic_mode(state, symbol_rparen);
+            panic_mode(state);
         }
     } else {
         throw_error(ERR_LEXICAL_INVALID_SYMBOL, state->current_line);
-        panic_mode(state, symbol_lparen);
+        panic_mode(state);
     }
 
     throw_error(ERR_UNEXPECTED_EOF, state->current_line);
-    panic_mode(state, symbol_error);
+    panic_mode(state);
 }
 
 // <mais_fatores> ::= * <fator> <mais_fatores> |
@@ -344,6 +344,6 @@ void PROC_relacional(Compiler_state* state) {
         get_next_token(state);
     } else {
         throw_error(ERR_LEXICAL_INVALID_SYMBOL, state->current_line);
-        panic_mode(state, symbol_rel_eq);
+        panic_mode(state);
     }
 }
