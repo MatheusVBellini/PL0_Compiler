@@ -3,6 +3,9 @@
 
 #include "lexical_analyzer/lexical_analyzer.h"
 
+const int sync_tokens[] = {symbol_semicolon, symbol_period};
+const int num_sync_tokens = sizeof(sync_tokens) / sizeof(sync_tokens[0]);
+
 typedef enum {
     ERR_LEXICAL_INVALID_SYMBOL = 1,
     ERR_LEXICAL_INVALID_NUMBER,
@@ -19,6 +22,7 @@ typedef struct error {
 } PL0_Error;
 
 void throw_error(int error_code, int line);
-void panic_mode(Compiler_state* state, token_type expectedToken);
+void panic_mode(Compiler_state* state);
+int is_sync_token(int token_type);
 
 #endif

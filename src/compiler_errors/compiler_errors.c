@@ -34,13 +34,20 @@ void throw_error(int error_code, int line) {
     printf("\033[1;31mError in line %d:\033[0m %s\n", line, get_error_message(error_code));
 }
 
-void panic_mode(Compiler_state* state, token_type expectedToken) {
-    while (state->token->type != expectedToken && state->token->type != EOF) {
+void panic_mode(Compiler_state* state) {
+    // Continuar obtendo o próximo token até que encontremos um que possa sincronizar a análise
+    while (!is_sync_token(state->token)){
+        printf("Descartando token: %d na linha %d\n", state->token, state->current_line);
         get_next_token(state);
     }
-    if (state->token->type == EOF) {
-        printf("Error: Unexpected end of file\n");
-    } else {
-        get_next_token(state); // consume the synchronizing token
+    printf("Recuperação completa. Retomando análise no token: %d na linha %d\n", state->token, state->current_line);
+}
+
+int is_sync_token(int token_type) {
+    for (int i = 0; i < num_sync_tokens; i++) {
+        if (token_type == sync_tokens[i]) {
+            return 1;
+        }
     }
+    return 0;
 }
