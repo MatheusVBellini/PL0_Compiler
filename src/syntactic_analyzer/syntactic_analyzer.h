@@ -20,6 +20,7 @@ void PROC_operador_unario(Compiler_state* state);
 void PROC_termo(Compiler_state* state);
 void PROC_mais_termos(Compiler_state* state);
 void PROC_fator(Compiler_state* state);
+void PROC_mais_fatores(Compiler_state* state);
 void PROC_condicao(Compiler_state* state);
 void PROC_relacional(Compiler_state* state);
 

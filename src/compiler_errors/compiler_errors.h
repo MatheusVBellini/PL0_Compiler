@@ -1,6 +1,8 @@
 #ifndef PL0_ERRORS_H
 #define PL0_ERRORS_H
 
+#include "lexical_analyzer/lexical_analyzer.h"
+
 typedef enum {
     ERR_LEXICAL_INVALID_SYMBOL = 1,
     ERR_LEXICAL_INVALID_NUMBER,
@@ -17,5 +19,6 @@ typedef struct error {
 } PL0_Error;
 
 void throw_error(int error_code, int line);
+void panic_mode(Compiler_state* state, token_type expectedToken);
 
 #endif
