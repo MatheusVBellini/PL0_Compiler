@@ -44,11 +44,18 @@ typedef struct symbol_entry {
     token_type type;
 } Symbol_entry;
 
+typedef struct input_info {
+    char* line;
+    char* file_name;
+    int line_pos;
+    int current_line;
+} Input_info;
+
 typedef struct compiler_state {
     FILE* input;
     Token* token;
     KWTable* kwtable;
-    int current_line;
+    Input_info* input_info;
     int error_count;
 } Compiler_state;
 

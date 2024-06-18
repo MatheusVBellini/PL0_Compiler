@@ -116,18 +116,18 @@ void add_token_to_state(Compiler_state* s, Token* token) {
  * @param s Compiler state
  */
 void get_next_token(Compiler_state* s) {
-    static char line[PL0_MAX_TOKEN_SIZE];
-    static int line_index = 0;
     static bool end_of_line = true;
+
     static int comment_opened_in_line = COMMENT_CLOSED;
+    static int comment_opened_in_line_pos = 0;
 
     char c;
 
     if (end_of_line) {
-        if (fgets(line, PL0_MAX_TOKEN_SIZE, s->input)) {
-            line_index = 0;
+        if (fgets(s->input_info->line, PL0_MAX_TOKEN_SIZE, s->input)) {
+            s->input_info->line_pos = 0;
             end_of_line = false;
-            s->current_line++;
+            s->input_info->current_line++;
         } else {
             // If there are no more lines, add a NULL token to the state
             add_token_to_state(s, NULL);
@@ -135,32 +135,52 @@ void get_next_token(Compiler_state* s) {
             // If we reach this point, it means we've reached the end of the file
             // Check if there are comments that were not closed
             if (comment_opened_in_line != COMMENT_CLOSED) {
-                throw_error(ERR_COMMENT_NOT_CLOSED, comment_opened_in_line, &s->error_count);
+                // Grab line from input file and come back to the last line
+                char comment_line[PL0_MAX_TOKEN_SIZE];
+                int current_pos = ftell(s->input);
+
+                fseek(s->input, 0, SEEK_SET);
+                for (int i = 0; i < comment_opened_in_line; i++) {
+                    fgets(comment_line, PL0_MAX_TOKEN_SIZE, s->input);
+                }
+
+                Input_info inp = *s->input_info;
+                s->input_info->line = comment_line;
+                s->input_info->line_pos = comment_opened_in_line_pos + 1;
+                s->input_info->current_line = comment_opened_in_line;
+
+                throw_error(ERR_COMMENT_NOT_CLOSED, s);
+
+                *s->input_info = inp;
+
+                fseek(s->input, current_pos, SEEK_SET);
             }
             return;
         }
     }
 
-    while ((c = line[line_index]) != '\0') {
+    while ((c = s->input_info->line[s->input_info->line_pos]) != '\0') {
         // Skip comments
         if (comment_opened_in_line != COMMENT_CLOSED) {
             if (c == '}') {
                 comment_opened_in_line = COMMENT_CLOSED;
+                comment_opened_in_line_pos = 0;
             }
-            line_index++;
+            s->input_info->line_pos++;
             continue;
         }
 
         // Check if a comment starts
         if (c == '{') {
-            comment_opened_in_line = s->current_line;
-            line_index++;
+            comment_opened_in_line = s->input_info->current_line;
+            comment_opened_in_line_pos = s->input_info->line_pos;
+            s->input_info->line_pos++;
             continue;
         }
 
         // Skip spaces
         if (is_space(c)) {
-            line_index++;
+            s->input_info->line_pos++;
             continue;
         }
 
@@ -172,9 +192,9 @@ void get_next_token(Compiler_state* s) {
             // Read the whole word, '_' is also considered a valid character
             while (is_alphanumeric(c) || c == '_') {
                 word[word_len++] = c;
-                line_index++;
-                if (line[line_index] == '\0') break;  // Check to avoid overflow if it's the end of the string
-                c = line[line_index];
+                s->input_info->line_pos++;
+                if (s->input_info->line[s->input_info->line_pos] == '\0') break;  // Check to avoid overflow if it's the end of the string
+                c = s->input_info->line[s->input_info->line_pos];
             }
             word[word_len] = '\0';
 
@@ -196,9 +216,9 @@ void get_next_token(Compiler_state* s) {
         }
 
         // Handle compound symbols and error reporting
-        if (c == ':' && line[line_index + 1] == '=') {
+        if (c == ':' && s->input_info->line[s->input_info->line_pos + 1] == '=') {
             add_token_to_state(s, new_token(symbol_atrib, ":="));
-            line_index += 2;  // Skip the two characters
+            s->input_info->line_pos += 2;  // Skip the two characters
             return;
         }
 
@@ -207,19 +227,22 @@ void get_next_token(Compiler_state* s) {
             char symbol[3] = {c, '\0', '\0'};
 
             // Check if the symbol is a two-character symbol and if the second character is the expected one
-            if (is_possible_double_char_symbol(c) && is_second_expected_char(c, line[line_index + 1])) {
-                symbol[1] = line[line_index + 1];
-                line_index++;
+            if (is_possible_double_char_symbol(c) && is_second_expected_char(c, s->input_info->line[s->input_info->line_pos + 1])) {
+                symbol[1] = s->input_info->line[s->input_info->line_pos + 1];
+                s->input_info->line_pos++;
             }
             add_token_to_state(s, new_token(get_symbol_id(symbol), symbol));
-            line_index++;
+            s->input_info->line_pos++;
             return;
         }
 
         // If the character is not a valid one, it's an error
+        s->input_info->line_pos++;
+        
         char err[2] = {c, '\0'};
         add_token_to_state(s, new_token(symbol_error, err));
-        line_index++;
+        throw_error(ERR_LEXICAL_INVALID_SYMBOL, s);
+
         return;
     }
 

@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     }
 
     // run compiler
-    PL0_compiler(input);
+    PL0_compiler(input, argv[1]);
 
     fclose(input);
 

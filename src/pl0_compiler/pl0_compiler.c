@@ -10,7 +10,7 @@
  * @brief Run the lexical analyzer on the given file
  * @param file File pointer
  */
-void PL0_compiler(FILE* file) {
+void PL0_compiler(FILE* file, char* file_name) {
     // init keyword table
     KWTable* kwtable = kwtable_init();
 
@@ -18,7 +18,9 @@ void PL0_compiler(FILE* file) {
     Compiler_state state;
     state.input = file;
     state.kwtable = kwtable;
-    state.current_line = 0;
+    state.input_info = malloc(sizeof(Input_info));
+    state.input_info->line = malloc(PL0_MAX_TOKEN_SIZE);
+    state.input_info->file_name = file_name;
     state.error_count = 0;
 
     PL0_syntactic_analyzer(&state);
@@ -26,6 +28,11 @@ void PL0_compiler(FILE* file) {
     if (state.error_count == 0) {
         printf("\033[1;32mCompilation successful\033[0m\n");
     } else {
-        printf("\033[1;31mCompilation failed, %d errors\033[0m\n", state.error_count);
+        printf("\n\033[1;31mCompilation failed, %d errors\033[0m\n", state.error_count);
     }
+
+    // free memory
+    free(state.input_info->line);
+    free(state.input_info);
+    kwtable_free(kwtable);
 }

@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void PL0_compiler(FILE* file);
+void PL0_compiler(FILE* file, char* file_name);
 
 #endif

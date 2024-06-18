@@ -1,6 +1,7 @@
 #include "compiler_errors.h"
 
 #include <stdio.h>
+#include <string.h>
 
 #include "lexical_analyzer/lexical_analyzer.h"
 
@@ -14,14 +15,14 @@ PL0_Error errors_table[] = {
     {ERR_LEXICAL_INVALID_SYMBOL, "Invalid symbol"},
     {ERR_LEXICAL_INVALID_NUMBER, "Invalid number"},
     {ERR_LEXICAL_INVALID_IDENTIFIER, "Invalid identifier"},
-    {ERR_LEXICAL_MISSING_SEMICOLON, "Missing semicolon \" ; \""},
-    {ERR_LEXICAL_MISSING_EQUAL_SYMBOL, "Missing equal \" = \" symbol"},
-    {ERR_LEXICAL_MISSING_END_SYMBOL, "Missing \" END \" symbol"},
-    {ERR_LEXICAL_MISSING_THEN_SYMBOL, "Missing \" THEN \" symbol"},
-    {ERR_LEXICAL_MISSING_DO_SYMBOL, "Missing \" DO \" symbol"},
-    {ERR_LEXICAL_MISSING_RIGHT_PARENTHESIS, "Missing right parenthesis \" ) \""},
-    {ERR_LEXICAL_MISSING_LEFT_PARENTHESIS, "Missing left parenthesis \" ( \""},
-    {ERR_LEXICAL_MISSING_RELATIONAL_OPERATOR, "Missing relational operator \" =, <>, <, >, <=, >= \""},
+    {ERR_LEXICAL_MISSING_SEMICOLON, "Missing semicolon `;` before this token"},
+    {ERR_LEXICAL_MISSING_EQUAL_SYMBOL, "Missing equal `=` symbol before this token"},
+    {ERR_LEXICAL_MISSING_END_SYMBOL, "Missing `END` symbol before this token"},
+    {ERR_LEXICAL_MISSING_THEN_SYMBOL, "Missing `THEN` symbol before this token"},
+    {ERR_LEXICAL_MISSING_DO_SYMBOL, "Missing `DO` symbol before this token"},
+    {ERR_LEXICAL_MISSING_RIGHT_PARENTHESIS, "Missing right parenthesis `)` before this token"},
+    {ERR_LEXICAL_MISSING_LEFT_PARENTHESIS, "Missing left parenthesis `(` before this token"},
+    {ERR_LEXICAL_MISSING_RELATIONAL_OPERATOR, "Missing relational operator `=`, `<>`, `<`, `>`, `<=`, `>=` before this token"},
 };
 
 // crie uma funcao que pega um codigo de erro e retorna uma mensagem de erro
@@ -34,16 +35,63 @@ char* get_error_message(int error_code) {
     return "Unknown error";
 }
 
-void throw_error(int error_code, int line, int* error_count) {
-    if (line <= 0) {
+void throw_error(int error_code, Compiler_state* s) {
+    Input_info* inp = s->input_info;
+
+    if (inp->current_line <= 0 || inp->line == NULL) {
         // print without line number
         printf("\033[1;31mError:\033[0m %s\n", get_error_message(error_code));
     } else {
-        // print with line number
-        printf("\033[1;31mError in line %d:\033[0m %s\n", line, get_error_message(error_code));
+        size_t token_len = 0;
+        if (s->token != NULL) {
+            token_len = strlen(s->token->value);
+        }
+
+        // print with line number and the line content
+        printf("\033[1m%s:%d:%d:\033[1;31m error:\033[0m %s\n", inp->file_name, inp->current_line, inp->line_pos, get_error_message(error_code));
+
+        // Print the line with the token highlighted in red
+        printf("  %02d |\t", inp->current_line);
+        for (size_t i = 0; i < inp->line_pos - token_len; i++) {
+            printf("%c", inp->line[i]);
+        }
+
+        if (s->token != NULL) {
+            printf("\033[1;31m%s\033[0m", s->token->value);
+        }
+        printf("%s", inp->line + inp->line_pos);
+
+        printf("     |\t");
+
+        if (s->token == NULL) {
+            token_len++; // It just works
+        }
+
+        // Print the caret pointing to the error position (line_pos - token_len)
+        for (size_t i = 0; i < inp->line_pos - token_len; i++) {
+            if (inp->line[i] == '\t') {
+                printf("\t");  // handle tabs properly
+            } else {
+                printf(" ");
+            }
+        }
+
+        if (s->token == NULL) {
+            token_len--; // It just works
+        }
+
+        // Print the caret
+        printf("\033[1;31m^\033[0m");
+
+        // Print the ~
+        for (size_t i = 1; i < token_len; i++) {
+            printf("\033[1;31m~\033[0m");
+        }
+
+        printf("\n");
     }
 
-    (*error_count)++;
+    s->error_count++;
 }
 
 void panic_mode(Compiler_state* state) {
@@ -53,10 +101,10 @@ void panic_mode(Compiler_state* state) {
 
     // Continuar obtendo o próximo token até que encontremos um que possa sincronizar a análise
     while (!is_sync_token(state->token->type)) {
-        printf("Descartando token: %d na linha %d\n", state->token->type, state->current_line);
+        // printf("Descartando token: %d na linha %d\n", state->token->type, state->input_info->current_line);
         get_next_token(state);
     }
-    printf("Recuperação completa. Retomando análise no token: %d na linha %d\n", state->token->type, state->current_line);
+    // printf("Recuperação completa. Retomando análise no token: %d na linha %d\n", state->token->type, state->input_info->current_line);
 }
 
 int is_sync_token(token_type type) {

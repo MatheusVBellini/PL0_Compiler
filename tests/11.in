@@ -21,6 +21,6 @@ BEGIN
     BEGIN
       flag := 1;
       CALL isOdd;
-    END
+    END;
     flag := 0;
 END.
