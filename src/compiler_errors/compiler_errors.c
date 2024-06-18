@@ -46,8 +46,12 @@ void throw_error(int error_code, int line) {
 }
 
 void panic_mode(Compiler_state* state) {
+    if (!state->token) {
+        return; // Não há mais tokens para analisar
+    }
+
     // Continuar obtendo o próximo token até que encontremos um que possa sincronizar a análise
-    while (!is_sync_token(state->token->type)){
+    while (!is_sync_token(state->token->type)) {
         printf("Descartando token: %d na linha %d\n", state->token->type, state->current_line);
         get_next_token(state);
     }
