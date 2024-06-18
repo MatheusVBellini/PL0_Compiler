@@ -10,7 +10,7 @@ typedef enum {
     ERR_LEXICAL_INVALID_IDENTIFIER,
     ERR_NO_FINAL_PERIOD,
     ERR_COMMENT_NOT_CLOSED,
-    ERR_UNEXPECTED_EOF, 
+    ERR_UNEXPECTED_EOF,
     ERR_LEXICAL_MISSING_SEMICOLON,
     ERR_LEXICAL_MISSING_EQUAL_SYMBOL,
     ERR_LEXICAL_MISSING_END_SYMBOL,
@@ -27,7 +27,7 @@ typedef struct error {
     char* message;
 } PL0_Error;
 
-void throw_error(int error_code, int line);
+void throw_error(int error_code, int line, int* error_count);
 void panic_mode(Compiler_state* state);
 int is_sync_token(token_type token_type);
 

@@ -18,6 +18,7 @@ void PL0_compiler(FILE* file) {
     state.input = file;
     state.kwtable = kwtable;
     state.current_line = 0;
+    state.error_count = 0;
 
     PL0_syntactic_analyzer(&state);
 }

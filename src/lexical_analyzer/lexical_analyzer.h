@@ -49,6 +49,7 @@ typedef struct compiler_state {
     Token* token;
     KWTable* kwtable;
     int current_line;
+    int error_count;
 } Compiler_state;
 
 // int get_reserved_word_id(char *word);

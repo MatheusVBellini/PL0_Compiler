@@ -135,7 +135,7 @@ void get_next_token(Compiler_state* s) {
             // If we reach this point, it means we've reached the end of the file
             // Check if there are comments that were not closed
             if (comment_opened_in_line != COMMENT_CLOSED) {
-                throw_error(ERR_COMMENT_NOT_CLOSED, comment_opened_in_line);
+                throw_error(ERR_COMMENT_NOT_CLOSED, comment_opened_in_line, &s->error_count);
             }
             return;
         }

@@ -1,8 +1,8 @@
 #include "compiler_errors.h"
 
-#include "lexical_analyzer/lexical_analyzer.h"
-
 #include <stdio.h>
+
+#include "lexical_analyzer/lexical_analyzer.h"
 
 const token_type sync_tokens[] = {symbol_semicolon, symbol_period};
 const int num_sync_tokens = sizeof(sync_tokens) / sizeof(sync_tokens[0]);
@@ -34,20 +34,21 @@ char* get_error_message(int error_code) {
     return "Unknown error";
 }
 
-void throw_error(int error_code, int line) {
+void throw_error(int error_code, int line, int* error_count) {
     if (line <= 0) {
-        // print error message in red
+        // print without line number
         printf("\033[1;31mError:\033[0m %s\n", get_error_message(error_code));
-        return;
+    } else {
+        // print with line number
+        printf("\033[1;31mError in line %d:\033[0m %s\n", line, get_error_message(error_code));
     }
 
-    // print error message in red
-    printf("\033[1;31mError in line %d:\033[0m %s\n", line, get_error_message(error_code));
+    (*error_count)++;
 }
 
 void panic_mode(Compiler_state* state) {
     if (!state->token) {
-        return; // Não há mais tokens para analisar
+        return;  // Não há mais tokens para analisar
     }
 
     // Continuar obtendo o próximo token até que encontremos um que possa sincronizar a análise
