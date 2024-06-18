@@ -13,7 +13,15 @@ PL0_Error errors_table[] = {
     {ERR_UNEXPECTED_EOF, "Unexpected end of file"},
     {ERR_LEXICAL_INVALID_SYMBOL, "Invalid symbol"},
     {ERR_LEXICAL_INVALID_NUMBER, "Invalid number"},
-    {ERR_LEXICAL_INVALID_IDENTIFIER, "Invalid identifier"}
+    {ERR_LEXICAL_INVALID_IDENTIFIER, "Invalid identifier"},
+    {ERR_LEXICAL_MISSING_SEMICOLON, "Missing semicolon \" ; \""},
+    {ERR_LEXICAL_MISSING_EQUAL_SYMBOL, "Missing equal \" = \" symbol"},
+    {ERR_LEXICAL_MISSING_END_SYMBOL, "Missing \" END \" symbol"},
+    {ERR_LEXICAL_MISSING_THEN_SYMBOL, "Missing \" THEN \" symbol"},
+    {ERR_LEXICAL_MISSING_DO_SYMBOL, "Missing \" DO \" symbol"},
+    {ERR_LEXICAL_MISSING_RIGHT_PARENTHESIS, "Missing right parenthesis \" ) \""},
+    {ERR_LEXICAL_MISSING_LEFT_PARENTHESIS, "Missing left parenthesis \" ( \""},
+    {ERR_LEXICAL_MISSING_RELATIONAL_OPERATOR, "Missing relational operator \" =, <>, <, >, <=, >= \""},
 };
 
 // crie uma funcao que pega um codigo de erro e retorna uma mensagem de erro
