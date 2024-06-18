@@ -1,5 +1,4 @@
 VAR x;
 BEGIN
   x := 5;
-  WHILE x < 0
 END.
