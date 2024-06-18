@@ -95,6 +95,7 @@ char* str_to_upper(const char* str) {
 bool is_equal_token_types(Token* t, int type) {
     if (t == NULL) {
         throw_error(ERR_UNEXPECTED_EOF, 0);
+        return false;
     };
 
     return t->type == type;
@@ -103,6 +104,7 @@ bool is_equal_token_types(Token* t, int type) {
 bool is_equal_keywords(Token* t, const char* value) {
     if (t == NULL) {
         throw_error(ERR_UNEXPECTED_EOF, 0);
+        return false;
     };
 
     if (t->type == symbol_keyword) {

@@ -44,7 +44,7 @@ void PROC_constante(Compiler_state* state) {
             get_next_token(state);
             if (is_equal_token_types(state->token, symbol_rel_eq)) {
                 get_next_token(state);
-               if (is_equal_token_types(state->token, symbol_number)) {
+                if (is_equal_token_types(state->token, symbol_number)) {
                     get_next_token(state);
                     PROC_mais_const(state);
                     if (is_equal_token_types(state->token, symbol_semicolon)) {
@@ -53,10 +53,10 @@ void PROC_constante(Compiler_state* state) {
                         throw_error(ERR_LEXICAL_INVALID_SYMBOL, state->current_line);
                         panic_mode(state);
                     }
-               } else {
+                } else {
                     throw_error(ERR_LEXICAL_INVALID_NUMBER, state->current_line);
                     panic_mode(state);
-               }
+                }
             } else {
                 throw_error(ERR_LEXICAL_INVALID_SYMBOL, state->current_line);
                 panic_mode(state);
@@ -67,7 +67,7 @@ void PROC_constante(Compiler_state* state) {
         }
         return;
     }
-    return; // ε
+    return;  // ε
 }
 
 // <mais_const> ::= , ident = numero <mais_const> | ε
@@ -94,7 +94,7 @@ void PROC_mais_const(Compiler_state* state) {
             panic_mode(state);
         }
     }
-    return; // ε
+    return;  // ε
 }
 
 // <variavel> ::= VAR ident <mais_var>; | ε
@@ -116,7 +116,7 @@ void PROC_variavel(Compiler_state* state) {
         }
         return;
     }
-    return; // ε
+    return;  // ε
 }
 
 // <mais_var> ::= , ident <mais_var> | ε
@@ -131,7 +131,7 @@ void PROC_mais_var(Compiler_state* state) {
             panic_mode(state);
         }
     }
-    return; // ε
+    return;  // ε
 }
 
 // <procedimento> ::= PROCEDURE ident ; <bloco> ; <procedimento> | ε
@@ -160,13 +160,13 @@ void PROC_procedimento(Compiler_state* state) {
         }
         return;
     }
-    return; // ε
+    return;  // ε
 }
 
-// <comando> ::= ident := <expressao>           | 
-//               CALL ident                     | 
-//               BEGIN <comando> <mais_cmd> END | 
-//               IF <condicao> THEN <comando>   | 
+// <comando> ::= ident := <expressao>           |
+//               CALL ident                     |
+//               BEGIN <comando> <mais_cmd> END |
+//               IF <condicao> THEN <comando>   |
 //               WHILE <condicao> DO <comando>  |
 //               ε
 void PROC_comando(Compiler_state* state) {
@@ -194,6 +194,7 @@ void PROC_comando(Compiler_state* state) {
         get_next_token(state);
         PROC_comando(state);
         PROC_mais_cmd(state);
+
         if (is_equal_keywords(state->token, "END")) {
             get_next_token(state);
         } else {
@@ -229,7 +230,7 @@ void PROC_comando(Compiler_state* state) {
         return;
     }
 
-    return; // ε
+    return;  // ε
 }
 
 // <mais_cmd> ::= ; <comando> <mais_cmd> | ε
@@ -239,7 +240,7 @@ void PROC_mais_cmd(Compiler_state* state) {
         PROC_comando(state);
         PROC_mais_cmd(state);
     }
-    return; // ε
+    return;  // ε
 }
 
 // <expressao> ::= <operador_unario> <termo> <mais_termos>
@@ -251,11 +252,11 @@ void PROC_expressao(Compiler_state* state) {
 
 // <operador_unario> ::= - | + | ε
 void PROC_operador_unario(Compiler_state* state) {
-    if (is_equal_token_types(state->token, symbol_op_minus) || 
+    if (is_equal_token_types(state->token, symbol_op_minus) ||
         is_equal_token_types(state->token, symbol_op_plus)) {
         get_next_token(state);
     }
-    return; // ε
+    return;  // ε
 }
 
 // <termo> ::= <fator> <mais_fatores>
@@ -268,25 +269,25 @@ void PROC_termo(Compiler_state* state) {
 //                   + <termo> <mais_termos> |
 //                   ε
 void PROC_mais_termos(Compiler_state* state) {
-    if (is_equal_token_types(state->token, symbol_op_minus) || 
+    if (is_equal_token_types(state->token, symbol_op_minus) ||
         is_equal_token_types(state->token, symbol_op_plus)) {
         get_next_token(state);
         PROC_termo(state);
         PROC_mais_termos(state);
     }
-    return; // ε
+    return;  // ε
 }
 
 // <fator> ::= ident | numero | ( <expressao> )
 void PROC_fator(Compiler_state* state) {
     if (is_equal_token_types(state->token, symbol_identifier)) {
         get_next_token(state);
-    } 
-    
+    }
+
     else if (is_equal_token_types(state->token, symbol_number)) {
         get_next_token(state);
-    } 
-    
+    }
+
     else if (is_equal_token_types(state->token, symbol_lparen)) {
         get_next_token(state);
         PROC_expressao(state);
@@ -300,22 +301,19 @@ void PROC_fator(Compiler_state* state) {
         throw_error(ERR_LEXICAL_INVALID_SYMBOL, state->current_line);
         panic_mode(state);
     }
-
-    throw_error(ERR_UNEXPECTED_EOF, state->current_line);
-    panic_mode(state);
 }
 
 // <mais_fatores> ::= * <fator> <mais_fatores> |
 //                    / <fator> <mais_fatores> |
 //                    ε
 void PROC_mais_fatores(Compiler_state* state) {
-    if (is_equal_token_types(state->token, symbol_op_times) || 
+    if (is_equal_token_types(state->token, symbol_op_times) ||
         is_equal_token_types(state->token, symbol_op_slash)) {
         get_next_token(state);
         PROC_fator(state);
         PROC_mais_fatores(state);
     }
-    return; // ε
+    return;  // ε
 }
 
 // <condicao> ::= ODD <expressao> |
@@ -324,8 +322,8 @@ void PROC_condicao(Compiler_state* state) {
     if (is_equal_keywords(state->token, "ODD")) {
         get_next_token(state);
         PROC_expressao(state);
-    } 
-    
+    }
+
     else {
         PROC_expressao(state);
         PROC_relacional(state);
@@ -335,11 +333,11 @@ void PROC_condicao(Compiler_state* state) {
 
 // <relacional> ::= = | <> | < | <= | > | >=
 void PROC_relacional(Compiler_state* state) {
-    if (is_equal_token_types(state->token, symbol_rel_eq)  || 
-        is_equal_token_types(state->token, symbol_rel_neq) || 
-        is_equal_token_types(state->token, symbol_rel_lt)  || 
-        is_equal_token_types(state->token, symbol_rel_le)  || 
-        is_equal_token_types(state->token, symbol_rel_gt)  || 
+    if (is_equal_token_types(state->token, symbol_rel_eq) ||
+        is_equal_token_types(state->token, symbol_rel_neq) ||
+        is_equal_token_types(state->token, symbol_rel_lt) ||
+        is_equal_token_types(state->token, symbol_rel_le) ||
+        is_equal_token_types(state->token, symbol_rel_gt) ||
         is_equal_token_types(state->token, symbol_rel_ge)) {
         get_next_token(state);
     } else {

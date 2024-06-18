@@ -21,6 +21,6 @@ typedef struct error {
 
 void throw_error(int error_code, int line);
 void panic_mode(Compiler_state* state);
-int is_sync_token(int token_type);
+int is_sync_token(token_type token_type);
 
 #endif

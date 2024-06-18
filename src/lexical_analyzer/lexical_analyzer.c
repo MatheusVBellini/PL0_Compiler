@@ -148,20 +148,20 @@ void get_next_token(Compiler_state* s) {
                 comment_opened_in_line = COMMENT_CLOSED;
             }
             line_index++;
-            return;
+            continue;
         }
 
         // Check if a comment starts
         if (c == '{') {
             comment_opened_in_line = s->current_line;
             line_index++;
-            return;
+            continue;
         }
 
         // Skip spaces
         if (is_space(c)) {
             line_index++;
-            return;
+            continue;
         }
 
         // Handle numbers, identifiers, symbols and errors
@@ -220,10 +220,12 @@ void get_next_token(Compiler_state* s) {
         char err[2] = {c, '\0'};
         add_token_to_state(s, new_token(symbol_error, err));
         line_index++;
+        return;
     }
 
     // If we've processed the whole line, set the end_of_line flag
     end_of_line = true;
+    get_next_token(s);  // Call the function recursively to get the next token
 }
 
 void print_token(Token* token) {
