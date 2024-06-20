@@ -215,12 +215,11 @@ void PROC_comando(Compiler_state* state) {
         PROC_condicao(state);
         if (is_equal_keywords(state->token, "THEN")) {
             get_next_token(state);
-            PROC_comando(state);
         } else {
             throw_error(ERR_SYNTACTICAL_MISSING_THEN_SYMBOL, state);
             panic_mode(state);
-            PROC_comando(state);
         }
+        PROC_comando(state);
         return;
     }
 
@@ -306,7 +305,7 @@ void PROC_fator(Compiler_state* state) {
             panic_mode(state);
         }
     } else {
-        throw_error(ERR_SYNTACTICAL_MISSING_LEFT_PARENTHESIS, state);
+        throw_error(ERR_SYNTACTICAL_MISSING_EXPRESSION_NUMBER_OR_IDENTIFIER, state);
         panic_mode(state);
     }
 }
