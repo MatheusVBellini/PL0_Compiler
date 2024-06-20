@@ -308,7 +308,6 @@ void PROC_fator(Compiler_state* state) {
     } else {
         throw_error(ERR_LEXICAL_MISSING_LEFT_PARENTHESIS, state);
         panic_mode(state);
-        PROC_expressao(state);
     }
 }
 
