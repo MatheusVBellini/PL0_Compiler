@@ -24,6 +24,7 @@ PL0_Error errors_table[] = {
     {ERR_SYNTACTICAL_MISSING_LEFT_PARENTHESIS, "Missing left parenthesis `(` before this token"},
     {ERR_SYNTACTICAL_MISSING_RELATIONAL_OPERATOR, "Missing relational operator `=`, `<>`, `<`, `>`, `<=`, `>=` before this token"},
     {ERR_SYNTACTICAL_MISSING_EXPRESSION_NUMBER_OR_IDENTIFIER, "Missing expression, number or identifier before this token"},
+    {ERR_SYNTACTICAL_MISSING_CONDITION, "Missing condition before this token"}
 };
 
 // crie uma funcao que pega um codigo de erro e retorna uma mensagem de erro

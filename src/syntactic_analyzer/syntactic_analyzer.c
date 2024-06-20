@@ -331,6 +331,12 @@ void PROC_condicao(Compiler_state* state) {
         PROC_expressao(state);
     }
 
+    // special error state 
+    else if (is_equal_keywords(state->token, "DO") ||
+             is_equal_keywords(state->token, "THEN")) {
+        throw_error(ERR_SYNTACTICAL_MISSING_CONDITION, state);
+    }
+
     else {
         PROC_expressao(state);
         PROC_relacional(state);
