@@ -1,5 +1,8 @@
 VAR i;
 BEGIN
-  WHILE i < 10 DO
+  WHILE i < 10
     i := i + 1;
+  WHILE i < 20 DO
+    i := i + 2;
+  
 END.

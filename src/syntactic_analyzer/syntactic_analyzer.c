@@ -56,6 +56,7 @@ void PROC_constante(Compiler_state* state) {
                 } else {
                     throw_error(ERR_LEXICAL_INVALID_NUMBER, state);
                     panic_mode(state);
+                    PROC_mais_const(state);
                 }
             } else {
                 throw_error(ERR_LEXICAL_MISSING_EQUAL_SYMBOL, state);
@@ -84,6 +85,7 @@ void PROC_mais_const(Compiler_state* state) {
                 } else {
                     throw_error(ERR_LEXICAL_INVALID_NUMBER, state);
                     panic_mode(state);
+                    PROC_mais_const(state);
                 }
             } else {
                 throw_error(ERR_LEXICAL_MISSING_EQUAL_SYMBOL, state);
@@ -113,6 +115,7 @@ void PROC_variavel(Compiler_state* state) {
         } else {
             throw_error(ERR_LEXICAL_INVALID_IDENTIFIER, state);
             panic_mode(state);
+            PROC_mais_var(state);
         }
         return;
     }
@@ -129,6 +132,7 @@ void PROC_mais_var(Compiler_state* state) {
         } else {
             throw_error(ERR_LEXICAL_INVALID_IDENTIFIER, state);
             panic_mode(state);
+            PROC_mais_var(state);
         }
     }
     return;  // ε
@@ -149,10 +153,12 @@ void PROC_procedimento(Compiler_state* state) {
                 } else {
                     throw_error(ERR_LEXICAL_MISSING_SEMICOLON, state);
                     panic_mode(state);
+                    PROC_procedimento(state);
                 }
             } else {
                 throw_error(ERR_LEXICAL_MISSING_SEMICOLON, state);
                 panic_mode(state);
+                PROC_bloco(state);
             }
         } else {
             throw_error(ERR_LEXICAL_INVALID_IDENTIFIER, state);
@@ -213,6 +219,7 @@ void PROC_comando(Compiler_state* state) {
         } else {
             throw_error(ERR_LEXICAL_MISSING_THEN_SYMBOL, state);
             panic_mode(state);
+            PROC_comando(state);
         }
         return;
     }
@@ -226,6 +233,7 @@ void PROC_comando(Compiler_state* state) {
         } else {
             throw_error(ERR_LEXICAL_MISSING_DO_SYMBOL, state);
             panic_mode(state);
+            PROC_comando(state);
         }
         return;
     }
@@ -300,6 +308,7 @@ void PROC_fator(Compiler_state* state) {
     } else {
         throw_error(ERR_LEXICAL_MISSING_LEFT_PARENTHESIS, state);
         panic_mode(state);
+        PROC_expressao(state);
     }
 }
 

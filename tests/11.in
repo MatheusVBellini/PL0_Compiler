@@ -11,7 +11,7 @@ END;
 BEGIN
   result := 0;
   i := 1;
-  WHILE i <= max DO
+  WHILE i <= max
     BEGIN
       IF i <> max THEN
         result := result + i;

@@ -5,7 +5,7 @@
 
 #include "lexical_analyzer/lexical_analyzer.h"
 
-const token_type sync_tokens[] = {symbol_semicolon, symbol_period};
+const token_type sync_tokens[] = {symbol_semicolon, symbol_period, symbol_identifier, symbol_keyword};
 const int num_sync_tokens = sizeof(sync_tokens) / sizeof(sync_tokens[0]);
 
 PL0_Error errors_table[] = {
@@ -96,15 +96,13 @@ void throw_error(int error_code, Compiler_state* s) {
 
 void panic_mode(Compiler_state* state) {
     if (!state->token) {
-        return;  // Não há mais tokens para analisar
+        return;  // No token to synchronize
     }
 
-    // Continuar obtendo o próximo token até que encontremos um que possa sincronizar a análise
+    // Keep reading tokens until a sync token is found
     while (!is_sync_token(state->token->type)) {
-        // printf("Descartando token: %d na linha %d\n", state->token->type, state->input_info->current_line);
         get_next_token(state);
     }
-    // printf("Recuperação completa. Retomando análise no token: %d na linha %d\n", state->token->type, state->input_info->current_line);
 }
 
 int is_sync_token(token_type type) {
