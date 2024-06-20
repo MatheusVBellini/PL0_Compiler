@@ -15,14 +15,14 @@ PL0_Error errors_table[] = {
     {ERR_LEXICAL_INVALID_SYMBOL, "Invalid symbol"},
     {ERR_LEXICAL_INVALID_NUMBER, "Invalid number"},
     {ERR_LEXICAL_INVALID_IDENTIFIER, "Invalid identifier"},
-    {ERR_LEXICAL_MISSING_SEMICOLON, "Missing semicolon `;` before this token"},
-    {ERR_LEXICAL_MISSING_EQUAL_SYMBOL, "Missing equal `=` symbol before this token"},
-    {ERR_LEXICAL_MISSING_END_SYMBOL, "Missing `END` symbol before this token"},
-    {ERR_LEXICAL_MISSING_THEN_SYMBOL, "Missing `THEN` symbol before this token"},
-    {ERR_LEXICAL_MISSING_DO_SYMBOL, "Missing `DO` symbol before this token"},
-    {ERR_LEXICAL_MISSING_RIGHT_PARENTHESIS, "Missing right parenthesis `)` before this token"},
-    {ERR_LEXICAL_MISSING_LEFT_PARENTHESIS, "Missing left parenthesis `(` before this token"},
-    {ERR_LEXICAL_MISSING_RELATIONAL_OPERATOR, "Missing relational operator `=`, `<>`, `<`, `>`, `<=`, `>=` before this token"},
+    {ERR_SYNTACTICAL_MISSING_SEMICOLON, "Missing semicolon `;` before this token"},
+    {ERR_SYNTACTICAL_MISSING_EQUAL_SYMBOL, "Missing equal `=` symbol before this token"},
+    {ERR_SYNTACTICAL_MISSING_END_SYMBOL, "Missing `END` symbol before this token"},
+    {ERR_SYNTACTICAL_MISSING_THEN_SYMBOL, "Missing `THEN` symbol before this token"},
+    {ERR_SYNTACTICAL_MISSING_DO_SYMBOL, "Missing `DO` symbol before this token"},
+    {ERR_SYNTACTICAL_MISSING_RIGHT_PARENTHESIS, "Missing right parenthesis `)` before this token"},
+    {ERR_SYNTACTICAL_MISSING_LEFT_PARENTHESIS, "Missing left parenthesis `(` before this token"},
+    {ERR_SYNTACTICAL_MISSING_RELATIONAL_OPERATOR, "Missing relational operator `=`, `<>`, `<`, `>`, `<=`, `>=` before this token"},
 };
 
 // crie uma funcao que pega um codigo de erro e retorna uma mensagem de erro
@@ -74,6 +74,12 @@ void throw_error(int error_code, Compiler_state* s) {
     }
     printf("%s", inp->line + inp->line_pos);
 
+    // if line not ended with \n, print it
+    size_t line_len = strlen(inp->line);
+    if (inp->line[line_len - 1] != '\n') {
+        printf("\n");
+    }
+
     printf("     |\t");
 
     if (s->token == NULL) {
@@ -112,6 +118,11 @@ void panic_mode(Compiler_state* state) {
     // Keep reading tokens until a sync token is found
     while (!is_sync_token(state->token->type)) {
         get_next_token(state);
+
+        // If the token is NULL, we reached the end of the file
+        if (state->token == NULL) {
+            return;
+        }
     }
 }
 
