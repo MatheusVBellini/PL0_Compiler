@@ -8,7 +8,7 @@
 int main(int argc, char *argv[]) {
     // declarations
     FILE *input;
-    if (argc != 2) {
+    if (argc < 2) {
         fprintf(stderr, "\033[1;31mError:\033[0m Usage: %s <input_file>\n", argv[0]);
         exit(1);
     }
@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     }
 
     // run compiler
-    PL0_compiler(input, argv[1]);
+    PL0_compiler(input, argc, argv);
 
     fclose(input);
 

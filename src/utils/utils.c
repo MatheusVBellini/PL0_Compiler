@@ -116,3 +116,13 @@ bool is_equal_keywords(Token* t, const char* value) {
 
     return false;
 }
+
+void set_flags(Compiler_state* state, int argc, char* argv[]) {
+    state->flags = (Flags*)malloc(sizeof(Flags));
+
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i], "-t") == 0) {
+            state->flags->test_mode = true;
+        }
+    }
+}

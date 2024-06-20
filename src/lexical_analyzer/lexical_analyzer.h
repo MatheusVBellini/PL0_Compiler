@@ -51,11 +51,18 @@ typedef struct input_info {
     int current_line;
 } Input_info;
 
+typedef struct flags {
+    bool test_mode; // "-t" - used for testing (print without colors)
+} Flags;
+
 typedef struct compiler_state {
     FILE* input;
     Token* token;
     KWTable* kwtable;
+
     Input_info* input_info;
+    Flags* flags;
+
     int error_count;
 } Compiler_state;
 
