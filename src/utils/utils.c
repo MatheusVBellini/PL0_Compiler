@@ -41,7 +41,7 @@ bool is_alphanumeric(char c) {
  */
 bool is_special_symbol(char c) {
     // Check if c is a single character symbol (e.g., '+', '-', '*', '/')
-    return strchr("+-*/=<>,;.", c) != NULL;
+    return strchr("+-*/=<>,;.()", c) != NULL;
 }
 
 /**

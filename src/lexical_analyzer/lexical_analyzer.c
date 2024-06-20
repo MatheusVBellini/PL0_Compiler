@@ -238,7 +238,7 @@ void get_next_token(Compiler_state* s) {
 
         // If the character is not a valid one, it's an error
         s->input_info->line_pos++;
-        
+
         char err[2] = {c, '\0'};
         add_token_to_state(s, new_token(symbol_error, err));
         throw_error(ERR_LEXICAL_INVALID_SYMBOL, s);
