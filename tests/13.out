@@ -1,0 +1,5 @@
+6:15 error: Comment not closed
+7:5 error: Missing `END` symbol before this token
+7:5 error: Expected a period at the end of the program
+
+Compilation failed, 3 errors
