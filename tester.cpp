@@ -10,6 +10,9 @@
 
 using namespace std;
 
+string program = "./compiler";
+string flags = "-t";
+
 bool ends_with(const std::string &str, const std::string &suffix)
 {
     if (str.length() < suffix.length())
@@ -35,15 +38,13 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
-    string compile_command = "make";
-    int compile_result = system(compile_command.c_str());
-    if (compile_result != 0)
-    {
-        cerr << "\033[1;31mError:\033[0m Failed to compile program" << endl;
-        return EXIT_FAILURE;
-    }
-
-    string program = "./compiler";
+    // string compile_command = "make";
+    // int compile_result = system(compile_command.c_str());
+    // if (compile_result != 0)
+    // {
+    //     cerr << "\033[1;31mError:\033[0m Failed to compile program" << endl;
+    //     return EXIT_FAILURE;
+    // }
 
     vector<tuple<string, bool, double>> results;
 
@@ -71,7 +72,7 @@ int main(int argc, char *argv[])
         }
 
         ostringstream oss;
-        oss << program << " " << input_file << " > output.txt 2>&1";
+        oss << program << " " << input_file << " " << flags << " > output.txt 2>&1";
         cout << oss.str() << endl;
         string command = oss.str();
 

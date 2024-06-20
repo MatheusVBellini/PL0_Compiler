@@ -15,5 +15,6 @@ bool is_space(char c);
 char* str_to_upper(const char* str);
 bool is_equal_token_types(Token* t, int type);
 bool is_equal_keywords(Token* t, const char* value);
+void set_flags(Compiler_state* state, int argc, char* argv[]);
 
 #endif
