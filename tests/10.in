@@ -1,4 +1,3 @@
-VAR count; { This is a comment }
 BEGIN
-  count := 0; { Initialize count }
+  x := (10;
 END.

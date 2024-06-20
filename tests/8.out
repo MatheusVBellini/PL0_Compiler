@@ -1,1 +1,4 @@
-Compilation successful
+1:13 error: Missing `DO` symbol before this token
+1:23 error: Expected a period at the end of the program
+
+Compilation failed, 2 errors

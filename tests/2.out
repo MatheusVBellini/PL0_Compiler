@@ -1,3 +1,4 @@
-2:5 error: Missing semicolon `;` before this token
+1:10 error: Missing equal `=` symbol before this token
+1:11 error: Expected a period at the end of the program
 
-Compilation failed, 1 errors
+Compilation failed, 2 errors

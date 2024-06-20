@@ -1,4 +1,4 @@
 VAR x;
 BEGIN
   x := 5;
-END.
+END

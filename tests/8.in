@@ -1,8 +1,1 @@
-VAR flag;
-PROCEDURE setTrue;
-BEGIN
-  flag := 1;
-END;
-BEGIN
-  CALL setTrue;
-END.
+WHILE x > 0 x := x - 1;

@@ -1,1 +1,3 @@
-Compilation successful
+2:5 error: Missing semicolon `;` before this token
+
+Compilation failed, 1 errors

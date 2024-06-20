@@ -1,5 +1,1 @@
-PROCEDURE increment;
-VAR num;
-BEGIN
-  num := num + 1;
-END;.
+VAR x,;

@@ -1,5 +1,4 @@
-VAR z;
+VAR x
 BEGIN
-  IF z = 0 THEN
-    z := 1;
+  x := 5;
 END.
