@@ -116,6 +116,12 @@ void PROC_variavel(Compiler_state* state) {
             throw_error(ERR_LEXICAL_INVALID_IDENTIFIER, state);
             panic_mode(state);
             PROC_mais_var(state);
+            if (is_equal_token_types(state->token, symbol_semicolon)) {
+                get_next_token(state);
+            } else {
+                throw_error(ERR_SYNTACTICAL_MISSING_SEMICOLON, state);
+                panic_mode(state);
+            }
         }
         return;
     }

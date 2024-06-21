@@ -5,7 +5,7 @@
 
 #include "lexical_analyzer/lexical_analyzer.h"
 
-const token_type sync_tokens[] = {symbol_semicolon, symbol_period, symbol_identifier, symbol_keyword};
+const token_type sync_tokens[] = {symbol_semicolon, symbol_period, symbol_keyword};
 const int num_sync_tokens = sizeof(sync_tokens) / sizeof(sync_tokens[0]);
 
 PL0_Error errors_table[] = {
