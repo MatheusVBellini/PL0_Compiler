@@ -1,3 +1,3 @@
-14:15 error: Missing left parenthesis `(` before this token
+14:15 error: Missing expression, number or identifier before this token
 
 Compilation failed, 1 errors
