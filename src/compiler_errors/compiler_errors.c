@@ -4,9 +4,8 @@
 #include <string.h>
 
 #include "lexical_analyzer/lexical_analyzer.h"
-
-const token_type sync_tokens[] = {symbol_semicolon, symbol_period, symbol_keyword};
-const int num_sync_tokens = sizeof(sync_tokens) / sizeof(sync_tokens[0]);
+#include "syntactic_analyzer/syntactic_analyzer.h"
+#include "utils/utils.h"
 
 PL0_Error errors_table[] = {
     {ERR_NO_FINAL_PERIOD, "Expected a period at the end of the program"},
@@ -112,13 +111,13 @@ void throw_error(int error_code, Compiler_state* s) {
     printf("\n");
 }
 
-void panic_mode(Compiler_state* state) {
+void panic_mode(Compiler_state* state, int sync_type) {
     if (!state->token) {
         return;  // No token to synchronize
     }
 
     // Keep reading tokens until a sync token is found
-    while (!is_sync_token(state->token->type)) {
+    while (!is_sync_token(state->token->type, sync_type)) {
         get_next_token(state);
 
         // If the token is NULL, we reached the end of the file
@@ -126,9 +125,81 @@ void panic_mode(Compiler_state* state) {
             return;
         }
     }
+
+    if (state->token->type == symbol_comma){
+        if (sync_type == 1) {
+            PROC_mais_const(state);
+        } else if (sync_type == 2) {
+            PROC_mais_var(state);
+            if (is_equal_token_types(state->token, symbol_semicolon)) {
+                get_next_token(state);
+            } else {
+                throw_error(ERR_SYNTACTICAL_MISSING_SEMICOLON, state);
+                panic_mode(state, 0);
+            }
+        }
+        return;
+    } else if (state->token->type == symbol_keyword) {
+        if (sync_type == 3){
+            PROC_procedimento(state);
+        } else if (sync_type == 4){
+            PROC_bloco(state);
+        }
+        return;
+    } else if (state->token->type == symbol_identifier) {
+        if (sync_type == 5) {
+            PROC_comando(state);
+            return;
+        }
+    }
+    return;
 }
 
-int is_sync_token(token_type type) {
+int is_sync_token(token_type type, int sync_type) {
+    token_type sync_tokens[5];
+    int num_sync_tokens = 0;
+    switch (sync_type) {
+        case 0: // No sync token
+            sync_tokens[0] = symbol_semicolon;
+            sync_tokens[1] = symbol_period;
+            sync_tokens[2] = symbol_keyword;
+            num_sync_tokens = 3;
+            break;
+        case 1: // If is looking for more constants
+            sync_tokens[0] = symbol_comma;
+            sync_tokens[1] = symbol_identifier;
+            sync_tokens[2] = symbol_semicolon;
+            sync_tokens[3] = symbol_period;
+            sync_tokens[4] = symbol_keyword;
+            num_sync_tokens = 5;
+            break;
+        case 2: // If is looking for more variables
+            sync_tokens[0] = symbol_comma;
+            sync_tokens[1] = symbol_identifier;
+            sync_tokens[2] = symbol_semicolon;
+            sync_tokens[3] = symbol_period;
+            sync_tokens[4] = symbol_keyword;
+            num_sync_tokens = 5;
+            break;
+        case 3: // If is looking for more procedures
+            sync_tokens[0] = symbol_keyword;
+            sync_tokens[1] = symbol_semicolon;
+            sync_tokens[2] = symbol_period;
+            num_sync_tokens = 3;
+            break;
+        case 4: // If is looking for more blocks
+            sync_tokens[0] = symbol_keyword;
+            sync_tokens[1] = symbol_semicolon;
+            sync_tokens[2] = symbol_period;
+            num_sync_tokens = 3;
+            break;
+        case 5: // If is looking for more commands
+            sync_tokens[0] = symbol_identifier;
+            sync_tokens[1] = symbol_semicolon;
+            sync_tokens[2] = symbol_keyword;
+            sync_tokens[3] = symbol_period;
+            num_sync_tokens = 4;
+    }
     for (int i = 0; i < num_sync_tokens; i++) {
         if (type == sync_tokens[i]) {
             return 1;

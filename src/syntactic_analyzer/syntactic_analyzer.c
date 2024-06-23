@@ -19,7 +19,7 @@ void PROC_programa(Compiler_state* state) {
         get_next_token(state);
     } else {
         throw_error(ERR_NO_FINAL_PERIOD, state);
-        panic_mode(state);
+        panic_mode(state, 0);
     }
 }
 
@@ -51,20 +51,19 @@ void PROC_constante(Compiler_state* state) {
                         get_next_token(state);
                     } else {
                         throw_error(ERR_SYNTACTICAL_MISSING_SEMICOLON, state);
-                        panic_mode(state);
+                        panic_mode(state, 1);
                     }
                 } else {
                     throw_error(ERR_LEXICAL_INVALID_NUMBER, state);
-                    panic_mode(state);
-                    PROC_mais_const(state);
+                    panic_mode(state, 1);
                 }
             } else {
                 throw_error(ERR_SYNTACTICAL_MISSING_EQUAL_SYMBOL, state);
-                panic_mode(state);
+                panic_mode(state, 0);
             }
         } else {
             throw_error(ERR_LEXICAL_INVALID_IDENTIFIER, state);
-            panic_mode(state);
+            panic_mode(state, 0);
         }
         return;
     }
@@ -84,16 +83,15 @@ void PROC_mais_const(Compiler_state* state) {
                     PROC_mais_const(state);
                 } else {
                     throw_error(ERR_LEXICAL_INVALID_NUMBER, state);
-                    panic_mode(state);
-                    PROC_mais_const(state);
+                    panic_mode(state, 1);
                 }
             } else {
                 throw_error(ERR_SYNTACTICAL_MISSING_EQUAL_SYMBOL, state);
-                panic_mode(state);
+                panic_mode(state, 0);
             }
         } else {
             throw_error(ERR_LEXICAL_INVALID_IDENTIFIER, state);
-            panic_mode(state);
+            panic_mode(state, 0);
         }
     }
     return;  // ε
@@ -110,18 +108,11 @@ void PROC_variavel(Compiler_state* state) {
                 get_next_token(state);
             } else {
                 throw_error(ERR_SYNTACTICAL_MISSING_SEMICOLON, state);
-                panic_mode(state);
+                panic_mode(state, 0);
             }
         } else {
             throw_error(ERR_LEXICAL_INVALID_IDENTIFIER, state);
-            panic_mode(state);
-            PROC_mais_var(state);
-            if (is_equal_token_types(state->token, symbol_semicolon)) {
-                get_next_token(state);
-            } else {
-                throw_error(ERR_SYNTACTICAL_MISSING_SEMICOLON, state);
-                panic_mode(state);
-            }
+            panic_mode(state, 2);
         }
         return;
     }
@@ -137,8 +128,7 @@ void PROC_mais_var(Compiler_state* state) {
             PROC_mais_var(state);
         } else {
             throw_error(ERR_LEXICAL_INVALID_IDENTIFIER, state);
-            panic_mode(state);
-            PROC_mais_var(state);
+            panic_mode(state, 2);
         }
     }
     return;  // ε
@@ -158,17 +148,15 @@ void PROC_procedimento(Compiler_state* state) {
                     PROC_procedimento(state);
                 } else {
                     throw_error(ERR_SYNTACTICAL_MISSING_SEMICOLON, state);
-                    panic_mode(state);
-                    PROC_procedimento(state);
+                    panic_mode(state,3);
                 }
             } else {
                 throw_error(ERR_SYNTACTICAL_MISSING_SEMICOLON, state);
-                panic_mode(state);
-                PROC_bloco(state);
+                panic_mode(state, 4);
             }
         } else {
             throw_error(ERR_LEXICAL_INVALID_IDENTIFIER, state);
-            panic_mode(state);
+            panic_mode(state, 0);
         }
         return;
     }
@@ -197,7 +185,7 @@ void PROC_comando(Compiler_state* state) {
             get_next_token(state);
         } else {
             throw_error(ERR_LEXICAL_INVALID_IDENTIFIER, state);
-            panic_mode(state);
+            panic_mode(state, 0);
         }
         return;
     }
@@ -211,7 +199,7 @@ void PROC_comando(Compiler_state* state) {
             get_next_token(state);
         } else {
             throw_error(ERR_SYNTACTICAL_MISSING_END_SYMBOL, state);
-            panic_mode(state);
+            panic_mode(state, 0);
         }
         return;
     }
@@ -221,11 +209,11 @@ void PROC_comando(Compiler_state* state) {
         PROC_condicao(state);
         if (is_equal_keywords(state->token, "THEN")) {
             get_next_token(state);
+            PROC_comando(state);
         } else {
             throw_error(ERR_SYNTACTICAL_MISSING_THEN_SYMBOL, state);
-            panic_mode(state);
+            panic_mode(state, 5);
         }
-        PROC_comando(state);
         return;
     }
 
@@ -237,8 +225,7 @@ void PROC_comando(Compiler_state* state) {
             PROC_comando(state);
         } else {
             throw_error(ERR_SYNTACTICAL_MISSING_DO_SYMBOL, state);
-            panic_mode(state);
-            PROC_comando(state);
+            panic_mode(state, 5);
         }
         return;
     }
@@ -308,11 +295,11 @@ void PROC_fator(Compiler_state* state) {
             get_next_token(state);
         } else {
             throw_error(ERR_SYNTACTICAL_MISSING_RIGHT_PARENTHESIS, state);
-            panic_mode(state);
+            panic_mode(state, 0);
         }
     } else {
         throw_error(ERR_SYNTACTICAL_MISSING_EXPRESSION_NUMBER_OR_IDENTIFIER, state);
-        panic_mode(state);
+        panic_mode(state, 0);
     }
 }
 
@@ -361,6 +348,6 @@ void PROC_relacional(Compiler_state* state) {
         get_next_token(state);
     } else {
         throw_error(ERR_SYNTACTICAL_MISSING_RELATIONAL_OPERATOR, state);
-        panic_mode(state);
+        panic_mode(state, 0);
     }
 }

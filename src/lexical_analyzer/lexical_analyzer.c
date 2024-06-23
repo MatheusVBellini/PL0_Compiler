@@ -242,7 +242,7 @@ void get_next_token(Compiler_state* s) {
         char err[2] = {c, '\0'};
         add_token_to_state(s, new_token(symbol_error, err));
         throw_error(ERR_LEXICAL_INVALID_SYMBOL, s);
-        panic_mode(s);
+        panic_mode(s, 0);
 
         return;
     }

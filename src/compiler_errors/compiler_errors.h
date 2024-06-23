@@ -29,7 +29,7 @@ typedef struct error {
 } PL0_Error;
 
 void throw_error(int error_code, Compiler_state* s);
-void panic_mode(Compiler_state* state);
-int is_sync_token(token_type token_type);
+void panic_mode(Compiler_state* state, int sync_type);
+int is_sync_token(token_type token_type, int sync_type);
 
 #endif
