@@ -115,10 +115,16 @@ void panic_mode(Compiler_state* state, int sync_type) {
     if (!state->token) {
         return;  // No token to synchronize
     }
+    if (state->token->type == symbol_error) {
+        get_next_token(state);
+    }
 
     // Keep reading tokens until a sync token is found
     while (!is_sync_token(state->token->type, sync_type)) {
         get_next_token(state);
+        if (state->token->type == symbol_error) {
+            continue;
+        }
 
         // If the token is NULL, we reached the end of the file
         if (state->token == NULL) {
@@ -144,13 +150,11 @@ void panic_mode(Compiler_state* state, int sync_type) {
             PROC_procedimento(state);
         } else if (sync_type == 4){
             PROC_bloco(state);
-        }
-        return;
-    } else if (state->token->type == symbol_identifier) {
-        if (sync_type == 5) {
+        } else if (sync_type == 5) {
             PROC_comando(state);
             return;
         }
+        return;
     }
     return;
 }
@@ -194,10 +198,9 @@ int is_sync_token(token_type type, int sync_type) {
             num_sync_tokens = 3;
             break;
         case 5: // If is looking for more commands
-            sync_tokens[0] = symbol_identifier;
+            sync_tokens[0] = symbol_keyword;
             sync_tokens[1] = symbol_semicolon;
-            sync_tokens[2] = symbol_keyword;
-            sync_tokens[3] = symbol_period;
+            sync_tokens[2] = symbol_period;
             num_sync_tokens = 4;
     }
     for (int i = 0; i < num_sync_tokens; i++) {
