@@ -175,6 +175,9 @@ void PROC_comando(Compiler_state* state) {
         if (is_equal_token_types(state->token, symbol_atrib)) {
             get_next_token(state);
             PROC_expressao(state);
+        } else {
+            throw_error(ERR_SYNTACTICAL_MISSING_EQUAL_SYMBOL, state);
+            panic_mode(state, 6);
         }
         return;
     }

@@ -1,3 +1,4 @@
-4:4 error: Expected a period at the end of the program
+3:5 error: Invalid symbol
+3:5 error: Missing equal `=` symbol before this token
 
-Compilation failed, 1 errors
+Compilation failed, 2 errors

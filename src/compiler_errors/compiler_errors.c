@@ -152,7 +152,11 @@ void panic_mode(Compiler_state* state, int sync_type) {
             PROC_bloco(state);
         } else if (sync_type == 5) {
             PROC_comando(state);
-            return;
+        }
+        return;
+    } else if (state->token->type == symbol_identifier) {
+        if (sync_type == 6) {
+            PROC_expressao(state);
         }
         return;
     }
@@ -201,7 +205,16 @@ int is_sync_token(token_type type, int sync_type) {
             sync_tokens[0] = symbol_keyword;
             sync_tokens[1] = symbol_semicolon;
             sync_tokens[2] = symbol_period;
-            num_sync_tokens = 4;
+            num_sync_tokens = 3;
+            break;
+        case 6: // If is looking for more expressions
+            sync_tokens[0] = symbol_identifier;
+            sync_tokens[1] = symbol_rparen;
+            sync_tokens[2] = symbol_semicolon;
+            sync_tokens[3] = symbol_keyword;
+            sync_tokens[4] = symbol_period;
+            num_sync_tokens = 5;
+            break;
     }
     for (int i = 0; i < num_sync_tokens; i++) {
         if (type == sync_tokens[i]) {
