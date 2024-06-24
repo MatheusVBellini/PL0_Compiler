@@ -15,7 +15,7 @@ PL0_Error errors_table[] = {
     {ERR_LEXICAL_INVALID_NUMBER, "Invalid number"},
     {ERR_LEXICAL_INVALID_IDENTIFIER, "Invalid identifier"},
     {ERR_SYNTACTICAL_MISSING_SEMICOLON, "Missing semicolon `;` before this token"},
-    {ERR_SYNTACTICAL_MISSING_EQUAL_SYMBOL, "Missing equal `=` symbol before this token"},
+    {ERR_SYNTACTICAL_MISSING_EQUAL_SYMBOL, "Missing equal `=` symbol after this token"},
     {ERR_SYNTACTICAL_MISSING_END_SYMBOL, "Missing `END` symbol before this token"},
     {ERR_SYNTACTICAL_MISSING_THEN_SYMBOL, "Missing `THEN` symbol before this token"},
     {ERR_SYNTACTICAL_MISSING_DO_SYMBOL, "Missing `DO` symbol before this token"},
