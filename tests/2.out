@@ -1,4 +1,4 @@
-1:10 error: Missing equal `=` symbol before this token
+1:10 error: Missing equal `=` symbol after this token
 1:11 error: Expected a period at the end of the program
 
 Compilation failed, 2 errors

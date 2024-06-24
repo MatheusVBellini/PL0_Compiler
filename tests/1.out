@@ -1,4 +1,4 @@
 3:5 error: Invalid symbol
-3:5 error: Missing equal `=` symbol before this token
+3:5 error: Missing equal `=` symbol after this token
 
 Compilation failed, 2 errors
